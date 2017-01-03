@@ -24,9 +24,9 @@ public class CarController {
 	@CrossOrigin(origins = "http://localhost:8800")
 	@RequestMapping(value="/getAllCars",method = RequestMethod.GET, headers = "Accept=application/json")
 	public List<Car>getCars() throws Exception{
-		System.out.println("XXX Weszlo do pobierania danych");
+		
 		CreateAndPopulateDB capDB = new CreateAndPopulateDB();
-		capDB.checkOrCreateTable(capDB);
+		CreateAndPopulateDB.checkOrCreateTable(capDB);
 		List<Car> listOfCars = carService.getAllCars();
 		return listOfCars;
 	}
@@ -37,7 +37,8 @@ public class CarController {
 	 }  
 	@CrossOrigin(origins = "http://localhost:8800")
 	 @RequestMapping(value = "/addCar", method = RequestMethod.POST, headers = "Accept=application/json")  
-	 public void addCar(@RequestBody Car car) {   
+	 public void addCar(@RequestBody Car car) {  
+		System.out.println("XXX weszlo do dodawania danych");
 	  carService.addCar(car);  
 	    
 	 }  
@@ -49,6 +50,7 @@ public class CarController {
 	@CrossOrigin(origins = "http://localhost:8800")
 	 @RequestMapping(value = "/deleteCar/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")  
 	 public void deleteCar(@PathVariable("id") int id) {  
+		
 	  carService.deleteCar(id);    
 	 }   
 

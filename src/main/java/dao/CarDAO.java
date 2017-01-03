@@ -6,10 +6,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;  
 import org.springframework.beans.factory.annotation.Autowired;  
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import bean.Car;  
   
-@Repository  
+@Repository 
+@Transactional
 public class CarDAO {  
   
  @Autowired  
@@ -32,7 +34,9 @@ public class CarDAO {
  }  
   
  public Car addCar(Car car) {  
-  Session session = this.sessionFactory.getCurrentSession();  
+  Session session = this.sessionFactory.getCurrentSession(); 
+  System.out.println("XXX weszlo do DAO");
+  car.setId((Integer) null); 
   session.persist(car);  
   return car;  
  }  
@@ -43,8 +47,11 @@ public class CarDAO {
  }  
   
  public void deleteCar(int id) {  
+	 
+	 
   Session session = this.sessionFactory.getCurrentSession();  
   Car p = (Car) session.load(Car.class, new Integer(id));  
+  System.out.println(p.getCarName());
   if (null != p) {  
    session.delete(p);  
   }  
