@@ -12,13 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class GeneralQuerrys {
-	@Autowired
-	private SessionFactory sessionFactory;
-	public void seSessionFactory(SessionFactory sf){
-		this.sessionFactory = sf;
-	}
-	public Integer maxIdFromTable(String querry){
-		Session session = this.sessionFactory.getCurrentSession();
-		return Integer.parseInt(session.createQuery(querry).toString());
+	
+	public static Integer maxIdFromTable(String querry, Session session){
+		Integer out = (Integer) session.createQuery(querry).uniqueResult();
+		
+		
+		
+		return out+1;
 	}
 }

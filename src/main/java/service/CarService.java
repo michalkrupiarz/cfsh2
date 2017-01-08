@@ -26,7 +26,6 @@ public class CarService {
 	}
 	@Transactional
 	public void addCar(Car car) {
-		System.out.println("XXX Weszlo do service");
 		carDao.addCar(car);
 		
 	}
@@ -37,7 +36,6 @@ public class CarService {
 	}
 
 	public void deleteCar(int id) {
-		
 		carDao.deleteCar(id);		
 	}
 	

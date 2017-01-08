@@ -38,7 +38,6 @@ public class CarController {
 	@CrossOrigin(origins = "http://localhost:8800")
 	 @RequestMapping(value = "/addCar", method = RequestMethod.POST, headers = "Accept=application/json")  
 	 public void addCar(@RequestBody Car car) {  
-		System.out.println("XXX weszlo do dodawania danych");
 	  carService.addCar(car);  
 	    
 	 }  
@@ -50,7 +49,6 @@ public class CarController {
 	@CrossOrigin(origins = "http://localhost:8800")
 	 @RequestMapping(value = "/deleteCar/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")  
 	 public void deleteCar(@PathVariable("id") int id) {  
-		
 	  carService.deleteCar(id);    
 	 }   
 
