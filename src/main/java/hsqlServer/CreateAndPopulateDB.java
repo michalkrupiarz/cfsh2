@@ -8,11 +8,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import bean.Car;
+import hsqlServer.createTablesHelper;
+import javassist.bytecode.stackmap.TypeData.ClassName;
 
 
 public class CreateAndPopulateDB {
 	static Connection conn;
+	
 	public CreateAndPopulateDB() throws Exception {
 		Class.forName("org.hsqldb.jdbc.JDBCDriver");
 		conn = DriverManager.getConnection("jdbc:hsqldb:C:/hsqldb-2.3.4/baza4","SA","");
@@ -31,13 +36,12 @@ public class CreateAndPopulateDB {
 	
 	public static synchronized void update(String querry) throws SQLException{
 		Statement st = null;
-		System.out.println("XXX Executing querry XXX "+querry);
         st = conn.createStatement();    // statements
         
         int i = st.executeUpdate(querry);    // run the query
 
         if (i == -1) {
-            System.out.println("db error : " + querry);
+           
         }
 
         
@@ -47,32 +51,27 @@ public class CreateAndPopulateDB {
     }
 	
 	
+	public static void createTable(CreateAndPopulateDB db, List<String> table){
+		Logger logger = Logger.getLogger(ClassName.class);
+		
+		try { 
+			
+			for (String querry:table){
+				logger.info("Trying to create with querry: "+querry);
+				db.update(querry);	
+			}		
+		} catch (SQLException ex2){
+			logger.error(ex2);
+		}
+	}
+	
 	public static void checkOrCreateTable(CreateAndPopulateDB db) throws Exception{
-		System.out.println("XXX Weszlo do generowania danych");
-		try {
-			db.update("CREATE TABLE cars (id INTEGER IDENTITY, carName VARCHAR(256), carRegistration VARCHAR(256))");
-			db.update(
-	                "INSERT INTO cars(carName,carRegistration) VALUES('Ford', 'AXX100')");
-	            db.update(
-	                "INSERT INTO cars(carName,carRegistration) VALUES('Toyota', 'AXX100')");
-	            db.update(
-	                "INSERT INTO cars(carName,carRegistration) VALUES('Honda', 'AXX100')");
-	            db.update(
-	                "INSERT INTO cars(carName,carRegistration) VALUES('GM', 'AXX100')");
-		} catch (SQLException ex2) {
-			//db.shutdown();
-        	System.out.println("Exception from try catch i checkOrCreateTable "+ex2);
-        	List<Car> cars = new ArrayList<>();
-        	cars = getAllCars("select * from cars");
-        	for (Car car:cars){
-        		System.out.println(car.getId()+car.getCarName()+car.getCarRegistration());
-        	}
-        }		
-		List<Car> cars = new ArrayList<>();
-    	cars = getAllCars("select * from cars");
-    	for (Car car:cars){
-    		System.out.println(car.getId()+car.getCarName()+car.getCarRegistration());
-    	}
+		
+		List<String> table = createTablesHelper.createAndPopulateCarsTable();
+        createTable(db,table);
+		
+		
+    	
 		//db.shutdown();
 	}
 	public static List<Car> getAllCars(String querry) throws Exception{
@@ -83,11 +82,12 @@ public class CreateAndPopulateDB {
 		
 		Statement st = null;
         ResultSet rs = null;
-        //checkOrCreateTable(db);
+        
         st = conn.createStatement();
-       
+        
         
         rs = st.executeQuery(querry);
+        
         cars = getCars(rs);
         st.close();
 		return cars;
@@ -95,7 +95,7 @@ public class CreateAndPopulateDB {
 	
 	public static List<Car> getCars(ResultSet rs) throws SQLException{
 		List <Car> cars = new ArrayList<>();
-		System.out.println(rs);
+		
 		
 		for (;rs.next();){
 			Car car = new Car();
