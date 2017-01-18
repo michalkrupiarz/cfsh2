@@ -69,43 +69,8 @@ public class CreateAndPopulateDB {
 		
 		List<String> table = createTablesHelper.createAndPopulateCarsTable();
         createTable(db,table);
-		
-		
-    	
-		//db.shutdown();
+        table = createTablesHelper.createAndPopulateCalendarTable();
+        createTable(db,table);
 	}
-	public static List<Car> getAllCars(String querry) throws Exception{
 	
-		List<Car> cars = new ArrayList<>();
-		
-		CreateAndPopulateDB db = new CreateAndPopulateDB();
-		
-		Statement st = null;
-        ResultSet rs = null;
-        
-        st = conn.createStatement();
-        
-        
-        rs = st.executeQuery(querry);
-        
-        cars = getCars(rs);
-        st.close();
-		return cars;
-		}
-	
-	public static List<Car> getCars(ResultSet rs) throws SQLException{
-		List <Car> cars = new ArrayList<>();
-		
-		
-		for (;rs.next();){
-			Car car = new Car();
-			car.setId(rs.getInt(1));
-			car.setCarName(rs.getString(2));
-			car.setCarRegistration(rs.getString(3));
-	
-			cars.add(car);
-		}
-	
-		return cars;
-	}
 }

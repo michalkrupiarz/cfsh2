@@ -21,7 +21,7 @@ public class createTablesHelper {
 	public static List<String> createAndPopulateCalendarTable(){
 		List<String> tables = new ArrayList<String>();
 		tables.add("CREATE TABLE calendar(id INTEGER IDENTITY, dateStart VARCHAR(256), dateEnd VARCHAR(256),"
-				+ "carId INTEGER, foreign key(carID) references cars(id)");
+				+ "carId INTEGER, foreign key(carID) references cars(id))");
 		tables.add("INSERT INTO calendar(dateStart,dateEnd,carId) VALUES('20170110','20170112',1)");
 		return tables;
 	}
