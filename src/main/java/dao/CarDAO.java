@@ -28,10 +28,12 @@ public class CarDAO {
   List<Car> carList = session.createQuery("from Car").list();  
   return carList;  
  }  
-  
+ 
  public Car getCar(int id) {  
+  System.out.println("XXX "+id);	 
   Session session = this.sessionFactory.getCurrentSession();  
-  Car car = (Car) session.load(Car.class, new Integer(id));  
+  Car car = (Car) session.load(Car.class, new Integer(id)); 
+  System.out.println(car.toString());
   return car;  
  }  
   
@@ -49,8 +51,7 @@ public class CarDAO {
  }  
   
  public void deleteCar(int id) {  
-	 
-	 
+ 
   Session session = this.sessionFactory.getCurrentSession();  
   Car p = (Car) session.load(Car.class, new Integer(id));  
   System.out.println(p.getCarName());
