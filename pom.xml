@@ -34,11 +34,19 @@
    <artifactId>spring-webmvc</artifactId>  
    <version>${spring.version}</version>  
   </dependency>  
-  <dependency>  
-   <groupId>com.fasterxml.jackson.core</groupId>  
-   <artifactId>jackson-databind</artifactId>  
-   <version>2.4.1</version>  
-  </dependency>  
+ 
+<dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>LATEST</version>
+    </dependency>
+   <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+<dependency>
+    <groupId>com.fasterxml.jackson.datatype</groupId>
+    <artifactId>jackson-datatype-hibernate4</artifactId>
+    <version>LATEST</version>
+</dependency>
+   
   <!-- Hibernate -->  
   <dependency>  
    <groupId>org.hibernate</groupId>  
