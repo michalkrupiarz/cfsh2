@@ -15,7 +15,7 @@
   destroy-method="close">  
   <beans:property name="driverClassName" value="org.hsqldb.jdbc.JDBCDriver" />  
   <beans:property name="url"  
-   value="jdbc:hsqldb:C:/hsqldb-2.3.4/baza4" />  
+   value="jdbc:hsqldb:C:/hsqldb-2.3.4/baza5" />  
   <beans:property name="username" value="SA" />  
   <beans:property name="password" value="" />  
  </beans:bean>  
@@ -26,7 +26,9 @@
   <beans:property name="dataSource" ref="dataSource" />  
   <beans:property name="annotatedClasses">  
    <beans:list>  
-    <beans:value>bean.Car</beans:value>  
+    <beans:value>bean.Car</beans:value>
+    <beans:value>bean.carLend</beans:value>  
+    <beans:value>bean.Calendar</beans:value>
    </beans:list>  
   </beans:property>  
   <beans:property name="hibernateProperties">  

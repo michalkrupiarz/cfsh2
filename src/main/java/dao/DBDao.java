@@ -19,6 +19,7 @@ public class DBDao {
 	 public void cleanDB(){
 		 Session session = this.sessionFactory.getCurrentSession();
 		 System.out.println(session.createSQLQuery("drop table calendar").executeUpdate());
+		 System.out.println(session.createSQLQuery("drop table lends").executeUpdate());
 		 System.out.println(session.createSQLQuery("drop table cars").executeUpdate());
-	 }
+			 }
 }

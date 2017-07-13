@@ -20,7 +20,7 @@ public class CreateAndPopulateDB {
 	
 	public CreateAndPopulateDB() throws Exception {
 		Class.forName("org.hsqldb.jdbc.JDBCDriver");
-		conn = DriverManager.getConnection("jdbc:hsqldb:C:/hsqldb-2.3.4/baza4","SA","");
+		conn = DriverManager.getConnection("jdbc:hsqldb:C:/hsqldb-2.3.4/baza5","SA","");
 	}
 	public void shutdown() throws SQLException {
 
@@ -67,9 +67,20 @@ public class CreateAndPopulateDB {
 	
 	public static void checkOrCreateTable(CreateAndPopulateDB db) throws Exception{
 		
+		carsTable(db);
+		calendarTable(db);
+		lendTable(db);
+	}
+	public static void carsTable(CreateAndPopulateDB db) throws Exception{
 		List<String> table = createTablesHelper.createAndPopulateCarsTable();
         createTable(db,table);
-        table = createTablesHelper.createAndPopulateCalendarTable();
+	}
+	public static void calendarTable(CreateAndPopulateDB db) throws Exception{
+		List<String> table = createTablesHelper.createAndPopulateCalendarTable();
+        createTable(db,table);
+	}
+	public static void lendTable(CreateAndPopulateDB db) throws Exception{
+		List<String> table = createTablesHelper.createAndPopulateLendTable();
         createTable(db,table);
 	}
 	

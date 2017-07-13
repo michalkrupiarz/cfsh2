@@ -7,7 +7,7 @@
   
   <filter>
         <filter-name>cors</filter-name>
-        <filter-class>headerFix.CORSFilter</filter-class>
+        <filter-class>corsfix.fix</filter-class>
     </filter>
 
     <filter-mapping>
@@ -22,6 +22,7 @@
  </servlet-class>  
  <load-on-startup>1</load-on-startup>  
 </servlet>  
+
 
   	
 <servlet-mapping>  

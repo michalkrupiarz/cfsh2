@@ -8,15 +8,14 @@
   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  
   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">  
  
- <annotation-driven />  
- 
+
  <resources mapping="/resources/**" location="/resources/" />  
   
  <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  
   destroy-method="close">  
   <beans:property name="driverClassName" value="org.hsqldb.jdbc.JDBCDriver" />  
   <beans:property name="url"  
-   value="jdbc:hsqldb:C:/hsqldb-2.3.4/baza4" />  
+   value="jdbc:hsqldb:C:/hsqldb-2.3.4/baza5" />  
   <beans:property name="username" value="SA" />  
   <beans:property name="password" value="" />  
  </beans:bean>  
@@ -46,6 +45,16 @@
  <context:component-scan base-package="corsfix"/>  
    
  <tx:annotation-driven transaction-manager="transactionManager"/>  
+ 
+<annotation-driven>
+  <message-converters>
+    <beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+      <beans:property name="objectMapper">
+        <beans:bean class="corsfix.MappingJackson2HttpMessageConverter" />
+      </beans:property>
+    </beans:bean> 
+  </message-converters>
+</annotation-driven>
    
  <beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">  
   <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />  
