@@ -70,6 +70,12 @@ public class CreateAndPopulateDB {
 		carsTable(db);
 		calendarTable(db);
 		lendTable(db);
+		repairsTable(db);
+	}
+	
+	public static void repairsTable(CreateAndPopulateDB db) throws Exception{
+		List<String> table = createTablesHelper.createAndPopulateRepairsTable();
+		createTable(db,table);
 	}
 	public static void carsTable(CreateAndPopulateDB db) throws Exception{
 		List<String> table = createTablesHelper.createAndPopulateCarsTable();

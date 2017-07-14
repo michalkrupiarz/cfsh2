@@ -20,6 +20,7 @@ public class DBDao {
 		 Session session = this.sessionFactory.getCurrentSession();
 		 System.out.println(session.createSQLQuery("drop table calendar").executeUpdate());
 		 System.out.println(session.createSQLQuery("drop table lends").executeUpdate());
+		 System.out.println(session.createSQLQuery("drop table repairs").executeUpdate());
 		 System.out.println(session.createSQLQuery("drop table cars").executeUpdate());
 			 }
 }

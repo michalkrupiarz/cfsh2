@@ -29,9 +29,17 @@ public class createTablesHelper {
 	public static List<String> createAndPopulateLendTable(){
 		List<String> tables = new ArrayList<String>();
 		tables.add("CREATE TABLE lends (id INTEGER IDENTITY,lendStart VARCHAR(256), lendEnd VARCHAR(256),carId INTEGER,"
-				+ "person VARCHAR(2000), foreign key (CarId) references cars(id))");
+				+ "person VARCHAR(2000), foreign key (carId) references cars(id))");
 		tables.add("Insert into lends (lendStart,lendEnd,carId,person) "
 				+ "values('20170101','20170202',1,'Marcelus Wallace')");
+		return tables;
+	}
+	public static List<String> createAndPopulateRepairsTable(){
+		List<String> tables = new ArrayList<String>();
+		tables.add("CREATE TABLE repairs (id INTEGER IDENTITY, dateStart VARCHAR(256), dateEnd VARCHAR(256), "
+				+ "carId INTEGER, note VARCHAR(2000), foreign key (carId) references cars(id))");
+		tables.add("Insert into repairs(dateStart,dateEnd,carID,note) "
+				+ "values('20170202','20170303',1,'To jest pierwsza naprawa')");
 		return tables;
 	}
 }
