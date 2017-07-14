@@ -1,10 +1,15 @@
 package bean;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="cars")
 public class Car {
+	
+
 	
 	@Id
 	@Column(name = "id")
@@ -52,10 +59,12 @@ public class Car {
 		this.carName = carName;
 		this.carRegistration = carRegistration;
 	}
-	
-	public void toString(Car car){
-		System.out.println(car.getId()+car.getCarName()+car.getCarRegistration());
-		
+	@Override
+	public String toString() {
+		return "Car [id=" + id + ", carName=" + carName + ", carRegistration=" + carRegistration + "]";
 	}
+	
+	
+
 	
 }

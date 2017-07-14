@@ -29,7 +29,7 @@ public class LendDao {
 	
 	public carLend getLend (int id){
 		Session session = this.sessionFactory.getCurrentSession();
-		carLend carLend = (carLend) session.load(carLend.class,new Integer (id));
+		carLend carLend = (carLend) session.get(carLend.class,new Integer (id));
 		return carLend;
 	}
 	

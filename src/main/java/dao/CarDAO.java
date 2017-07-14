@@ -30,10 +30,8 @@ public class CarDAO {
  }  
  
  public Car getCar(int id) {  
-  System.out.println("XXX "+id);	 
   Session session = this.sessionFactory.getCurrentSession();  
-  Car car = (Car) session.load(Car.class, new Integer(id)); 
-  System.out.println(car.toString());
+  Car car = (Car) session.get(Car.class, new Integer(id)); 
   return car;  
  }  
   
