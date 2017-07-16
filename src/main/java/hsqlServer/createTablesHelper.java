@@ -40,6 +40,14 @@ public class createTablesHelper {
 				+ "carId INTEGER, note VARCHAR(2000), foreign key (carId) references cars(id))");
 		tables.add("Insert into repairs(dateStart,dateEnd,carId,note) "
 				+ "values('20170202','20170303',1,'To jest pierwsza naprawa')");
+		tables.add("Insert into repairs(dateStart,dateEnd,carId,note) "
+				+ "values('20170202','20170303',1,'To jest pierwsza naprawa')");
+		tables.add("Insert into repairs(dateStart,dateEnd,carId,note) "
+				+ "values('20170202','20170303',2,'To jest pierwsza naprawa')");
+		tables.add("Insert into repairs(dateStart,dateEnd,carId,note) "
+				+ "values('20170202','20170303',2,'To jest pierwsza naprawa')");
+		tables.add("Insert into repairs(dateStart,dateEnd,carId,note) "
+				+ "values('20170202','20170303',1,'To jest pierwsza naprawa')");
 		return tables;
 	}
 }

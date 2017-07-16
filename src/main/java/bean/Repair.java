@@ -19,8 +19,8 @@ public class Repair {
 	String dateStart;
 	String dateEnd;
 	String note;
-	int carId;
-	//private Car car;
+	//int carId;
+	private Car car;
 	
 	
 	@Id
@@ -71,7 +71,7 @@ public class Repair {
 //	public void setCar(Car car) {
 //		this.car = car;
 //	}
-	
+////	
 	
 	
 	@Override
@@ -81,13 +81,7 @@ public class Repair {
 	}
 	
 	
-//	public int getCarId() {
-//		return carId;
-//	}
-//
-//	public void setCarId(int carId) {
-//		this.carId = carId;
-//	}
+
 
 	public Repair(int id, String dateStart, String dateEnd, int carId, String note) {
 		super();

@@ -39,8 +39,13 @@ public class CarDAO {
 	 	 
 //	 List<Car> carList = s.createQuery("select car.repairs from Car car "
 //	 		+ "join car.repairs").list();
-	 List<Car> carList = s.createQuery("select car from Car car "
+	 List<Car> carList = s.createQuery("select distinct car from Car car "
 	 		+ "join car.repairs").list();
+	 
+	 for (Car c : carList){
+		 System.out.println(c.getRepairs());
+	 }
+	 
 	 return carList;
  }
  
