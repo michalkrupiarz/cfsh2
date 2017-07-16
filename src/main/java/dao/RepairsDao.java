@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import bean.Car;
 import bean.Repair;
 
 @Repository
@@ -27,6 +28,11 @@ public class RepairsDao {
 		  return repairList;  
 		 }  
 		 
+	 
+//	 querry to get all repairs with car:
+//		 List<Car>carList = s.createQuery("select rep, car from Repair rep"
+//			 		+ " join rep.car car").list();
+	 
 		 public Repair getRepair(int id) {  
 		  Session session = this.sessionFactory.getCurrentSession();  
 		  Repair repair = (Repair) session.get(Repair.class, new Integer(id)); 

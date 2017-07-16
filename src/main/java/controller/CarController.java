@@ -30,6 +30,13 @@ public class CarController {
 		List<Car> listOfCars = carService.getAllCars();
 		return listOfCars;
 	}
+	
+	@CrossOrigin(origins = "http://localhost:8800")
+	@RequestMapping(value="/getAllCarsWithRepairs",method = RequestMethod.GET, headers = "Accept=application/json")
+	public List<Car> getCarsWithReparis() throws Exception{
+		List<Car>lOC = carService.getAllCarsWithRepairs();
+		return lOC; 
+	}
 	@CrossOrigin(origins = "http://localhost:8800")
 	@RequestMapping(value = "/getCar/{id}", method = RequestMethod.GET, headers = "Accept=application/json")  
 	 public Car getCarById(@PathVariable int id) {  

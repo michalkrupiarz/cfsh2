@@ -38,7 +38,7 @@ public class createTablesHelper {
 		List<String> tables = new ArrayList<String>();
 		tables.add("CREATE TABLE repairs (id INTEGER IDENTITY, dateStart VARCHAR(256), dateEnd VARCHAR(256), "
 				+ "carId INTEGER, note VARCHAR(2000), foreign key (carId) references cars(id))");
-		tables.add("Insert into repairs(dateStart,dateEnd,carID,note) "
+		tables.add("Insert into repairs(dateStart,dateEnd,carId,note) "
 				+ "values('20170202','20170303',1,'To jest pierwsza naprawa')");
 		return tables;
 	}

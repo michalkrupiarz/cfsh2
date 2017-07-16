@@ -1,7 +1,10 @@
 package dao;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;  
 import org.hibernate.SessionFactory;  
@@ -10,7 +13,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import dao.GeneralQuerrys;
 
-import bean.Car;  
+import bean.Car;
+import bean.Repair;  
   
 @Repository 
 @Transactional
@@ -18,7 +22,8 @@ public class CarDAO {
   
  @Autowired  
  private SessionFactory sessionFactory;  
-  
+ private RepairsDao rDao;
+ 
  public void setSessionFactory(SessionFactory sf) {  
   this.sessionFactory = sf;  
  }  
@@ -28,6 +33,13 @@ public class CarDAO {
   List<Car> carList = session.createQuery("from Car").list();  
   return carList;  
  }  
+ 
+ public List<Car> getAllCarsWithRepairs(){
+	 Session s = this.sessionFactory.getCurrentSession();	 
+	 List<Car> carList = s.createQuery("from Car car "
+	 		+ "join car.repairs").list();
+	 return carList;
+ }
  
  public Car getCar(int id) {  
   Session session = this.sessionFactory.getCurrentSession();  

@@ -20,6 +20,13 @@ public class CarService {
 	public List<Car> getAllCars() {
 		return carDao.getAllCars();
 	}
+	
+	@Transactional
+	public List<Car> getAllCarsWithRepairs(){
+		List<Car> lC = carDao.getAllCarsWithRepairs();
+		return lC;
+	}
+	
 	@Transactional
 	public Car getCar(int id) {
 		return carDao.getCar(id);
