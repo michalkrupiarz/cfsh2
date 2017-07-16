@@ -1,4 +1,4 @@
-package bean;
+		package bean;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -50,7 +50,8 @@ public class Car {
 		this.carRegistration = carRegistration;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="car")
+	@OneToMany(fetch = FetchType.LAZY) //, mappedBy="car"
+	@JoinColumn(name = "carId", nullable=false)
 	public Set<Repair> getRepairs() {
 		return repairs;
 	}
@@ -62,13 +63,13 @@ public class Car {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Car(int id, String carName, String carRegistration) {
-		super();
-		this.id = id;
-		this.carName = carName;
-		this.carRegistration = carRegistration;
-	}
-	
+//	public Car(int id, String carName, String carRegistration) {
+//		super();
+//		this.id = id;
+//		this.carName = carName;
+//		this.carRegistration = carRegistration;
+//	}
+//	
 	
 	
 	public Car(int id, String carName, String carRegistration, Set<Repair> repairs) {

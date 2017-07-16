@@ -19,8 +19,8 @@ public class Repair {
 	String dateStart;
 	String dateEnd;
 	String note;
-	//int carId;
-	private Car car;
+	int carId;
+	//private Car car;
 	
 	
 	@Id
@@ -62,15 +62,15 @@ public class Repair {
 		this.note = note;
 	}
 	
-    @ManyToOne
-	@JoinColumn(name = "carId", nullable = false)
-	public Car getCar() {
-		return car;
-	}
-
-	public void setCar(Car car) {
-		this.car = car;
-	}
+//    @ManyToOne
+//    @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false)
+//	public Car getCar() {
+//		return car;
+//	}
+//
+//	public void setCar(Car car) {
+//		this.car = car;
+//	}
 	
 	
 	

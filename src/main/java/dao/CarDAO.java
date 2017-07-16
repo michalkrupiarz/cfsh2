@@ -35,8 +35,11 @@ public class CarDAO {
  }  
  
  public List<Car> getAllCarsWithRepairs(){
-	 Session s = this.sessionFactory.getCurrentSession();	 
-	 List<Car> carList = s.createQuery("from Car car "
+	 Session s = this.sessionFactory.getCurrentSession();
+	 	 
+//	 List<Car> carList = s.createQuery("select car.repairs from Car car "
+//	 		+ "join car.repairs").list();
+	 List<Car> carList = s.createQuery("select car from Car car "
 	 		+ "join car.repairs").list();
 	 return carList;
  }
