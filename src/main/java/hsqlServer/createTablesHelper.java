@@ -37,17 +37,35 @@ public class createTablesHelper {
 	public static List<String> createAndPopulateRepairsTable(){
 		List<String> tables = new ArrayList<String>();
 		tables.add("CREATE TABLE repairs (id INTEGER IDENTITY, dateStart VARCHAR(256), dateEnd VARCHAR(256), "
-				+ "carId INTEGER, note VARCHAR(2000), foreign key (carId) references cars(id))");
-		tables.add("Insert into repairs(dateStart,dateEnd,carId,note) "
-				+ "values('20170202','20170303',1,'To jest pierwsza naprawa')");
-		tables.add("Insert into repairs(dateStart,dateEnd,carId,note) "
-				+ "values('20170202','20170303',1,'To jest pierwsza naprawa')");
-		tables.add("Insert into repairs(dateStart,dateEnd,carId,note) "
-				+ "values('20170202','20170303',2,'To jest pierwsza naprawa')");
-		tables.add("Insert into repairs(dateStart,dateEnd,carId,note) "
-				+ "values('20170202','20170303',2,'To jest pierwsza naprawa')");
-		tables.add("Insert into repairs(dateStart,dateEnd,carId,note) "
-				+ "values('20170202','20170303',1,'To jest pierwsza naprawa')");
+				+ "carId INTEGER, note VARCHAR(2000), cost decimal (9,2), foreign key (carId) references cars(id))");
+		tables.add("Insert into repairs(dateStart,dateEnd,carId,note,cost) "
+				+ "values('20170202','20170303',1,'To jest pierwsza naprawa',100)");
+		tables.add("Insert into repairs(dateStart,dateEnd,carId,note,cost) "
+				+ "values('20170202','20170303',1,'To jest pierwsza naprawa',100)");
+		tables.add("Insert into repairs(dateStart,dateEnd,carId,note,cost) "
+				+ "values('20170202','20170303',2,'To jest pierwsza naprawa',100)");
+		tables.add("Insert into repairs(dateStart,dateEnd,carId,note,cost) "
+				+ "values('20170202','20170303',2,'To jest pierwsza naprawa',100)");
+		tables.add("Insert into repairs(dateStart,dateEnd,carId,note,cost) "
+				+ "values('20170202','20170303',1,'To jest pierwsza naprawa',100)");
+		return tables;
+	}
+	public static List<String> createAndPopulateInsuranceTable(){
+		List<String> tables = new ArrayList<String>();
+		tables.add("Create Table insurances(id Integer Identity, dateStart VARCHAR(256), dateEnd VARCHAR(256)"
+				+ ", note VARCHAR(2000),cost DECIMAL(9,2), insCompany VARCHAR(256)"
+				+ ", payDate VARCHAR(256), carId INTEGER"
+				+ ", foreign key (carId) references cars(id))");
+		tables.add("Insert into insurances (dateStart,dateEnd,note,cost,insCompany,payDate,carId) "
+				+ "values('20170202','20180201','ubezpieczenie jeden','1200.21','PZU SA','20170203',1)");
+		return tables;
+	}
+	public static List<String> createAndPopulateTiresTable(){
+		List<String> tables = new ArrayList<String>();
+		tables.add("Create table tires (id Integer Identity, type VarChar(256), changeDate VARCHAR(256)"
+				+ ", carId INTEGER, foreign key (carId) references cars(id))");
+		tables.add("Insert into tires (type,changeDate,carId) "
+				+ "values ('zimowe','20170901',1)");
 		return tables;
 	}
 }

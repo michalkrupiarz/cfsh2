@@ -71,8 +71,19 @@ public class CreateAndPopulateDB {
 		calendarTable(db);
 		lendTable(db);
 		repairsTable(db);
+		insurancesTable(db);	
+		tiresTable(db);
 	}
 	
+	public static void tiresTable(CreateAndPopulateDB db) throws Exception{
+		List<String> table = createTablesHelper.createAndPopulateTiresTable();
+		createTable(db, table);
+	}
+	
+	public static void insurancesTable(CreateAndPopulateDB db) throws Exception{
+		List<String> table = createTablesHelper.createAndPopulateInsuranceTable();
+		createTable(db,table);
+	}
 	public static void repairsTable(CreateAndPopulateDB db) throws Exception{
 		List<String> table = createTablesHelper.createAndPopulateRepairsTable();
 		createTable(db,table);

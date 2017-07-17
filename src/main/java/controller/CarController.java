@@ -24,9 +24,6 @@ public class CarController {
 	@CrossOrigin(origins = "http://localhost:8800")
 	@RequestMapping(value="/getAllCars",method = RequestMethod.GET, headers = "Accept=application/json")
 	public List<Car>getCars() throws Exception{
-		
-		CreateAndPopulateDB capDB = new CreateAndPopulateDB();
-		CreateAndPopulateDB.checkOrCreateTable(capDB);
 		List<Car> listOfCars = carService.getAllCars();
 		return listOfCars;
 	}

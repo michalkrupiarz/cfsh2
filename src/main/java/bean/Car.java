@@ -26,6 +26,8 @@ public class Car {
 	String carRegistration;
 	private Set<Repair> repairs = new HashSet<Repair>(0);
 	private Set<carLend> lends = new HashSet<carLend>(0);
+	private Set<Insurance> insurances = new HashSet<Insurance>(0);
+	private Set<Tires> tires = new HashSet<Tires>(0);
 	
 	@Id
 	@Column(name = "id")
@@ -70,27 +72,28 @@ public class Car {
 	public void setLends(Set<carLend> lends) {
 		this.lends = lends;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
+	@JsonManagedReference	
+	public Set<Insurance> getInsurances() {
+		return insurances;
+	}
+	public void setInsurances(Set<Insurance> insurances) {
+		this.insurances = insurances;
+	}
 	public Car() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Car(int id, String carName, String carRegistration) {
-		super();
-		this.id = id;
-		this.carName = carName;
-		this.carRegistration = carRegistration;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
+	@JsonManagedReference	
+	public Set<Tires> getTires() {
+		return tires;
 	}
-		
-	public Car(int id, String carName, String carRegistration, Set<Repair> repairs) {
-		super();
-		this.id = id;
-		this.carName = carName;
-		this.carRegistration = carRegistration;
-		this.repairs = repairs;
+	public void setTires(Set<Tires> tires) {
+		this.tires = tires;
 	}
-	@Override
-	public String toString() {
-		return "Car [id=" + id + ", carName=" + carName + ", carRegistration=" + carRegistration + ", repairs="
-				+ repairs + "]";
-	}
+	
+	
+
 }

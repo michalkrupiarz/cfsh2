@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import hsqlServer.CreateAndPopulateDB;
+
 @Repository 
 @Transactional
 public class DBDao {
@@ -18,9 +20,17 @@ public class DBDao {
 	 
 	 public void cleanDB(){
 		 Session session = this.sessionFactory.getCurrentSession();
+		 System.out.println(session.createSQLQuery("drop table tires").executeUpdate());
+		 System.out.println(session.createSQLQuery("drop table insurances").executeUpdate());
 		 System.out.println(session.createSQLQuery("drop table calendar").executeUpdate());
 		 System.out.println(session.createSQLQuery("drop table lends").executeUpdate());
 		 System.out.println(session.createSQLQuery("drop table repairs").executeUpdate());
 		 System.out.println(session.createSQLQuery("drop table cars").executeUpdate());
 			 }
+
+	public void createDB() throws Exception {
+		CreateAndPopulateDB db = new CreateAndPopulateDB();
+	    CreateAndPopulateDB.checkOrCreateTable(db);
+		
+	}
 }

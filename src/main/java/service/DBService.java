@@ -15,4 +15,8 @@ public class DBService {
 	public void cleanDB(){
 		dbDao.cleanDB();
 	}
+	@Transactional
+	public void createDB() throws Exception{
+		dbDao.createDB();
+	}
 }

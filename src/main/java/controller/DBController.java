@@ -18,4 +18,9 @@ public class DBController {
 	public void cleanDB () {
 		dbservice.cleanDB();
 	}
+	@CrossOrigin(origins = "http://localhost:8800")
+	@RequestMapping(value="/createDB", method = RequestMethod.GET, headers = "Accept=application/json")
+	public void createDB () throws Exception {
+		dbservice.createDB();
+	}
 }

@@ -30,6 +30,8 @@
     <beans:value>bean.carLend</beans:value>  
     <beans:value>bean.Calendar</beans:value>
     <beans:value>bean.Repair</beans:value>
+    <beans:value>bean.Insurance</beans:value>
+    <beans:value>bean.Tires</beans:value>
    </beans:list>  
   </beans:property>  
   <beans:property name="hibernateProperties">  

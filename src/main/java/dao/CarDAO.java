@@ -22,7 +22,6 @@ public class CarDAO {
   
  @Autowired  
  private SessionFactory sessionFactory;  
- private RepairsDao rDao;
  
  public void setSessionFactory(SessionFactory sf) {  
   this.sessionFactory = sf;  
@@ -31,19 +30,27 @@ public class CarDAO {
  public List<Car> getAllCars() {  
   Session session = this.sessionFactory.getCurrentSession();  
   List<Car> carList = session.createQuery("from Car").list();  
+  for (Car c : carList){
+		 System.out.println(c.getRepairs());
+		 System.out.println(c.getLends());
+		 System.out.println(c.getInsurances());
+		 System.out.println(c.getTires());
+	 }
   return carList;  
  }  
- 
+ /**
+  * 
+  * @return List of Cars that repairs are not null
+  */
  public List<Car> getAllCarsWithRepairs(){
 	 Session s = this.sessionFactory.getCurrentSession();
 	 	 
-//	 List<Car> carList = s.createQuery("select car.repairs from Car car "
-//	 		+ "join car.repairs").list();
 	 List<Car> carList = s.createQuery("select distinct car from Car car "
-	 		+ "join car.repairs").list();
+		+ "join car.repairs").list();
 	 
 	 for (Car c : carList){
 		 System.out.println(c.getRepairs());
+		 System.out.println(c.getLends());
 	 }
 	 
 	 return carList;
