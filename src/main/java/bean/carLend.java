@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="lends")
@@ -21,12 +25,22 @@ public class carLend {
 	
 	@Column(name="lendEnd")
 	String lendEnd;
-	
-	@Column(name="carId")
-	int carId;
-	
+		
 	@Column(name="person")
 	String person;
+	
+	@ManyToOne
+	@JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false)
+	@JsonBackReference
+	private Car car;
+	
+	public Car getCar() {
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
 
 	public int getId() {
 		return id;
@@ -52,14 +66,6 @@ public class carLend {
 		this.lendEnd = lendEnd;
 	}
 
-	public int getCarId() {
-		return carId;
-	}
-
-	public void setCarId(int carId) {
-		this.carId = carId;
-	}
-
 	public String getPerson() {
 		return person;
 	}
@@ -68,11 +74,11 @@ public class carLend {
 		this.person = person;
 	}
 
-	@Override
-	public String toString() {
-		return "carLend [id=" + id + ", lendStart=" + lendStart + ", lendEnd=" + lendEnd + ", carId=" + carId
-				+ ", person=" + person + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "carLend [id=" + id + ", lendStart=" + lendStart + ", lendEnd=" + lendEnd + ", carId=" + carId
+//				+ ", person=" + person + "]";
+//	}
 
 	public carLend(){
 		super();
@@ -83,7 +89,6 @@ public class carLend {
 		this.id = id;
 		this.lendStart = lendStart;
 		this.lendEnd = lendEnd;
-		this.carId = carId;
 		this.person = person;
 	}
 	

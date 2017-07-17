@@ -1,5 +1,8 @@
 	package bean;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.*;
+
 @Entity
 @Table(name = "repairs")
 public class Repair {
@@ -19,9 +26,7 @@ public class Repair {
 	String dateStart;
 	String dateEnd;
 	String note;
-	//int carId;
 	private Car car;
-	
 	
 	@Id
 	@Column(name="id")
@@ -62,27 +67,17 @@ public class Repair {
 		this.note = note;
 	}
 	
-//    @ManyToOne
-//    @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false)
-//	public Car getCar() {
-//		return car;
-//	}
-//
-//	public void setCar(Car car) {
-//		this.car = car;
-//	}
-////	
-	
-	
-	@Override
-	public String toString() {
-		return "Repair [id=" + id + ", dateStart=" + dateStart + ", dateEnd=" + dateEnd + ", note="
-				+ note + "]";
+    @ManyToOne
+    @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false)
+    @JsonBackReference
+	public Car getCar() {
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
 	}
 	
-	
-
-
 	public Repair(int id, String dateStart, String dateEnd, int carId, String note) {
 		super();
 		this.id = id;
@@ -96,14 +91,14 @@ public class Repair {
 		// TODO Auto-generated constructor stub
 	}
 
-//	public Repair(int id, String dateStart, String dateEnd, String note, Car car) {
-//		super();
-//		this.id = id;
-//		this.dateStart = dateStart;
-//		this.dateEnd = dateEnd;
-//		this.note = note;
-//		this.car = car;
-//	}
+	public Repair(int id, String dateStart, String dateEnd, String note, Car car) {
+		super();
+		this.id = id;
+		this.dateStart = dateStart;
+		this.dateEnd = dateEnd;
+		this.note = note;
+		this.car = car;
+	}
 
 
 	

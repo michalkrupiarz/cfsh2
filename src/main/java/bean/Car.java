@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.*;
 
 
 @Entity
@@ -23,6 +25,7 @@ public class Car {
 	String carName;
 	String carRegistration;
 	private Set<Repair> repairs = new HashSet<Repair>(0);
+	private Set<carLend> lends = new HashSet<carLend>(0);
 	
 	@Id
 	@Column(name = "id")
@@ -50,8 +53,8 @@ public class Car {
 		this.carRegistration = carRegistration;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY) //, mappedBy="car"
-	@JoinColumn(name = "carId", nullable=false)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="car")
+	@JsonManagedReference
 	public Set<Repair> getRepairs() {
 		return repairs;
 	}
@@ -59,19 +62,25 @@ public class Car {
 		this.repairs= repairs;
 	}
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
+	@JsonManagedReference
+	public Set<carLend> getLends() {
+		return lends;
+	}
+	public void setLends(Set<carLend> lends) {
+		this.lends = lends;
+	}
 	public Car() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-//	public Car(int id, String carName, String carRegistration) {
-//		super();
-//		this.id = id;
-//		this.carName = carName;
-//		this.carRegistration = carRegistration;
-//	}
-//	
-	
-	
+	public Car(int id, String carName, String carRegistration) {
+		super();
+		this.id = id;
+		this.carName = carName;
+		this.carRegistration = carRegistration;
+	}
+		
 	public Car(int id, String carName, String carRegistration, Set<Repair> repairs) {
 		super();
 		this.id = id;
@@ -81,10 +90,7 @@ public class Car {
 	}
 	@Override
 	public String toString() {
-		return "Car [id=" + id + ", carName=" + carName + ", carRegistration=" + carRegistration + "]";
+		return "Car [id=" + id + ", carName=" + carName + ", carRegistration=" + carRegistration + ", repairs="
+				+ repairs + "]";
 	}
-	
-	
-
-	
 }
