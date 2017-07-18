@@ -27,7 +27,8 @@ public class Car {
 	private Set<Repair> repairs = new HashSet<Repair>(0);
 	private Set<carLend> lends = new HashSet<carLend>(0);
 	private Set<Insurance> insurances = new HashSet<Insurance>(0);
-	private Set<Tires> tires = new HashSet<Tires>(0);
+	private Set<Tire> tires = new HashSet<Tire>(0);
+	private Set<Document> doc = new HashSet<Document>(0);
 	
 	@Id
 	@Column(name = "id")
@@ -87,11 +88,19 @@ public class Car {
 	}
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
 	@JsonManagedReference	
-	public Set<Tires> getTires() {
+	public Set<Tire> getTires() {
 		return tires;
 	}
-	public void setTires(Set<Tires> tires) {
+	public void setTires(Set<Tire> tires) {
 		this.tires = tires;
+	}
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
+	@JsonManagedReference	
+	public Set<Document> getDoc() {
+		return doc;
+	}
+	public void setDoc(Set<Document> doc) {
+		this.doc = doc;
 	}
 	
 	

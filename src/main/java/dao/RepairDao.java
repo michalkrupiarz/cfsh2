@@ -13,7 +13,7 @@ import bean.Repair;
 
 @Repository
 @Transactional
-public class RepairsDao {
+public class RepairDao {
 	
 	 @Autowired  
 	 private SessionFactory sessionFactory;  
@@ -27,19 +27,14 @@ public class RepairsDao {
 		  List<Repair> repairList = session.createQuery("from Repair").list();  
 		  return repairList;  
 		 }  
-		 
-	 
-//	 querry to get all repairs with car:
-//		 List<Car>carList = s.createQuery("select rep, car from Repair rep"
-//			 		+ " join rep.car car").list();
-	 
-		 public Repair getRepair(int id) {  
+		 	 
+	 public Repair getRepair(int id) {  
 		  Session session = this.sessionFactory.getCurrentSession();  
 		  Repair repair = (Repair) session.get(Repair.class, new Integer(id)); 
 		  return repair;  
 		 }  
 		  
-		 public Repair addRepair(Repair repair) {  
+	 public Repair addRepair(Repair repair) {  
 		  Session session = this.sessionFactory.getCurrentSession();
 		  repair.setId(GeneralQuerrys.maxIdFromTable("select max(repairs.id) from Repair repairs",session)); 
 		  System.out.println(repair.toString());
@@ -47,12 +42,12 @@ public class RepairsDao {
 		  return repair;  
 		 }  
 		  
-		 public void updateRepair(Repair repair) {  
+	 public void updateRepair(Repair repair) {  
 		  Session session = this.sessionFactory.getCurrentSession();  
 		  session.update(repair);  
 		 }  
 		  
-		 public void deleteRepair(int id) {  
+	 public void deleteRepair(int id) {  
 		 
 		  Session session = this.sessionFactory.getCurrentSession();  
 		  Repair p = (Repair) session.load(Repair.class, new Integer(id));  

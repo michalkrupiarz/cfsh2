@@ -73,13 +73,16 @@ public class CreateAndPopulateDB {
 		repairsTable(db);
 		insurancesTable(db);	
 		tiresTable(db);
+		documentsTable(db);
 	}
-	
+	public static void documentsTable(CreateAndPopulateDB db) {
+		List<String> table = createTablesHelper.createAndPopulateDocumentTable();
+		createTable(db,table);
+	}
 	public static void tiresTable(CreateAndPopulateDB db) throws Exception{
 		List<String> table = createTablesHelper.createAndPopulateTiresTable();
 		createTable(db, table);
 	}
-	
 	public static void insurancesTable(CreateAndPopulateDB db) throws Exception{
 		List<String> table = createTablesHelper.createAndPopulateInsuranceTable();
 		createTable(db,table);

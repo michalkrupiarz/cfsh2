@@ -68,4 +68,12 @@ public class createTablesHelper {
 				+ "values ('zimowe','20170901',1)");
 		return tables;
 	}
+	public static List<String> createAndPopulateDocumentTable(){
+		List<String> tables = new ArrayList<String>();
+		tables.add("create table documents (id Integer Identity, type VarChar(256), expirationDate varChar(256),"
+				+ "carId Integer, foreign key(carId) references cars(id))");
+		tables.add("Insert into documents (type, expirationDate,carId) "
+				+ "values ('wymiana dowod','20220512',2)");
+		return tables;
+	}
 }

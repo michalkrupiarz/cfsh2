@@ -6,31 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import bean.Tires;
-import dao.TiresDao;
+import bean.Tire;
+import dao.TireDao;
 
 @Service("TiresService")
 @Transactional
-public class TiresService {
+public class TireService {
 	@Autowired
-	TiresDao tiresDao;
+	TireDao tiresDao;
 	
 	@Transactional
-	public List<Tires> getAllTires(){
+	public List<Tire> getAllTires(){
 		return tiresDao.getAllTires();
 	}
 	@Transactional 
-	public Tires getTires(int id){
+	public Tire getTires(int id){
 		return tiresDao.getTires(id);
 	}
 	
 	@Transactional
-	public void addTires(Tires t){
+	public void addTires(Tire t){
 		tiresDao.addTires(t);
 	}
 	
 	@Transactional
-	public void updateTires(Tires t){
+	public void updateTires(Tire t){
 		tiresDao.updateTires(t);
 	}
 	

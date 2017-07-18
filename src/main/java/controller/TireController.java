@@ -10,36 +10,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import bean.Tires;
-import service.TiresService;
+import bean.Tire;
+import service.TireService;
 
 @RestController
-public class TiresController {
+public class TireController {
 
 	@Autowired
-	TiresService tS;
+	TireService tS;
 	
 	@CrossOrigin(origins="http://localhost:8100")
 	@RequestMapping(value="/getAllTires",method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<Tires> getTires() throws Exception{
-		List<Tires> listTires = tS.getAllTires();
+	public List<Tire> getTires() throws Exception{
+		List<Tire> listTires = tS.getAllTires();
 		return listTires;
 	}
 	
 	@CrossOrigin(origins = "http://localhost:8100")
 	@RequestMapping(value = "/getTires/{id}", method = RequestMethod.GET, headers = "Accept=application/json")  
-	 public Tires getTiresById(@PathVariable int id) {  
+	 public Tire getTiresById(@PathVariable int id) {  
 	  return tS.getTires(id);  
 	 }  
 	@CrossOrigin(origins = "http://localhost:8100")
 	 @RequestMapping(value = "/addTires", method = RequestMethod.POST, headers = "Accept=application/json")  
-	 public void addTires(@RequestBody Tires Tires) {  
+	 public void addTires(@RequestBody Tire Tires) {  
 	  tS.addTires(Tires);  
 	    
 	 }  
 	@CrossOrigin(origins = "http://localhost:8100")
 	 @RequestMapping(value = "/updateTires", method = RequestMethod.PUT, headers = "Accept=application/json")  
-	 public void updateTires(@RequestBody Tires Tires) {  
+	 public void updateTires(@RequestBody Tire Tires) {  
 	  tS.updateTires(Tires);  
 	 }  
 	@CrossOrigin(origins = "http://localhost:8100")

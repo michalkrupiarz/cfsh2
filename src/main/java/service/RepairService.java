@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import bean.Repair;
-import dao.RepairsDao;
+import dao.RepairDao;
 
 @Service("repairService")
 @Transactional
 public class RepairService {
 	@Autowired
-	RepairsDao repairDao;
+	RepairDao repairDao;
 	
 	@Transactional
 	public List<Repair> getAllRepairs() {
