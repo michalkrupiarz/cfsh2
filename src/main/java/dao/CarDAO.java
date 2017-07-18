@@ -36,6 +36,7 @@ public class CarDAO {
 		 System.out.println(c.getInsurances());
 		 System.out.println(c.getTires());
 		 System.out.println(c.getDoc());
+		 System.out.println(c.getCheck());
 	 }
   return carList;  
  }  

@@ -33,6 +33,7 @@
     <beans:value>bean.Insurance</beans:value>
     <beans:value>bean.Tire</beans:value>
     <beans:value>bean.Document</beans:value>
+    <beans:value>bean.Checkout</beans:value>
    </beans:list>  
   </beans:property>  
   <beans:property name="hibernateProperties">  

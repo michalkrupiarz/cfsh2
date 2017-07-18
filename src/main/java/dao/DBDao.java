@@ -19,7 +19,7 @@ public class DBDao {
 	@Autowired
 	private SessionFactory sessionFactory;  
 	 
-	private List<String> tableNames = Arrays.asList("documents","tires","insurances","calendar","lends","repairs","cars");
+	private List<String> tableNames = Arrays.asList("checkouts","documents","tires","insurances","calendar","lends","repairs","cars");
 		
 	 public void setSessionFactory(SessionFactory sf) {  
 	  this.sessionFactory = sf;  
@@ -32,18 +32,6 @@ public class DBDao {
 		 	dropTable(session,tableName,failedTables);
 		 }
 		 System.out.println(failedTables);
-//		 try {
-//			System.out.println(session.createSQLQuery("drop table documents").executeUpdate());
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		 System.out.println(session.createSQLQuery("drop table tires").executeUpdate());
-//		 System.out.println(session.createSQLQuery("drop table insurances").executeUpdate());
-//		 System.out.println(session.createSQLQuery("drop table calendar").executeUpdate());
-//		 System.out.println(session.createSQLQuery("drop table lends").executeUpdate());
-//		 System.out.println(session.createSQLQuery("drop table repairs").executeUpdate());
-//		 System.out.println(session.createSQLQuery("drop table cars").executeUpdate());
 	}
 
 	public void createDB() throws Exception {

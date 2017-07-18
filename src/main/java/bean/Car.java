@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Check;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -29,6 +31,7 @@ public class Car {
 	private Set<Insurance> insurances = new HashSet<Insurance>(0);
 	private Set<Tire> tires = new HashSet<Tire>(0);
 	private Set<Document> doc = new HashSet<Document>(0);
+	private Set<Checkout> check = new HashSet<Checkout>(0);
 	
 	@Id
 	@Column(name = "id")
@@ -101,6 +104,14 @@ public class Car {
 	}
 	public void setDoc(Set<Document> doc) {
 		this.doc = doc;
+	}
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
+	@JsonManagedReference	
+	public Set<Checkout> getCheck() {
+		return check;
+	}
+	public void setCheck(Set<Checkout> check) {
+		this.check = check;
 	}
 	
 	

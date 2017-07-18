@@ -76,4 +76,13 @@ public class createTablesHelper {
 				+ "values ('wymiana dowod','20220512',2)");
 		return tables;
 	}
+	public static List <String> createAndPopulateCheckoutTable(){
+		List<String> tables = new ArrayList<String>();
+		tables.add("create table checkouts (id Integer Identity, dateFrom varChar(256),"
+				+ "dateTo varChar(256), note varChar(256),cost decimal(9,2), carId Integer, "
+				+ "foreign key (carId) references cars(id))");
+		tables.add("Insert into checkouts(dateFrom,dateTo,note,cost,carId)"
+				+ " values ('20170701','20180630','wykonano, wszystko ok','100.00',3)");
+		return tables;
+	}
 }

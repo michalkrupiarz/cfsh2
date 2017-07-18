@@ -74,6 +74,12 @@ public class CreateAndPopulateDB {
 		insurancesTable(db);	
 		tiresTable(db);
 		documentsTable(db);
+		checkoutTable(db);
+	}
+	
+	public static void checkoutTable(CreateAndPopulateDB db){
+		List<String> table = createTablesHelper.createAndPopulateCheckoutTable();
+		createTable(db,table);
 	}
 	public static void documentsTable(CreateAndPopulateDB db) {
 		List<String> table = createTablesHelper.createAndPopulateDocumentTable();
