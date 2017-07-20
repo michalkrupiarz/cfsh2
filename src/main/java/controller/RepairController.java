@@ -22,9 +22,6 @@ public class RepairController {
 	@CrossOrigin(origins = "http://localhost:8800")
 	@RequestMapping(value="/getAllRepairs",method = RequestMethod.GET, headers = "Accept=application/json")
 	public List<Repair>getRepairs() throws Exception{
-		
-		CreateAndPopulateDB capDB = new CreateAndPopulateDB();
-		CreateAndPopulateDB.checkOrCreateTable(capDB);
 		List<Repair> listOfRepairs = repairService.getAllRepairs();
 		return listOfRepairs;
 	}

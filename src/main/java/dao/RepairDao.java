@@ -34,7 +34,7 @@ public class RepairDao {
 		  Session session = this.sessionFactory.getCurrentSession();  
 		  List<Repair> repairList = session.createQuery("from Repair").list();  
 		  for (Repair r:repairList) {
-			  r.getCar();
+			  System.out.println("this is car "+r.getCar());
 		  }
 		  return repairList;  
 		 }  

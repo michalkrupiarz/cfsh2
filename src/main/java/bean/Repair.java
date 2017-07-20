@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -74,7 +75,7 @@ public class Repair {
 	}
 	
 	@Column(name="cost")
-    public Float getCost() {
+    public Float getCost() {	
 		return cost;
 	}
 
@@ -82,35 +83,15 @@ public class Repair {
 		this.cost = cost;
 	}
 
-	@ManyToOne
-    @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
     @JsonBackReference
-	public Car getCar() {
+	public Car getCar() {	
 		return car;
 	}
 
 	public void setCar(Car car) {
 		this.car = car;
 	}
-	
-
-	public Repair() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Repair(int id, Calendar dateStart, Calendar dateEnd, String note, Car car, Float cost) {
-		super();
-		this.id = id;
-		this.dateStart = dateStart;
-		this.dateEnd = dateEnd;
-		this.note = note;
-		this.car = car;
-		this.cost = cost;
-	}
-
-
-	
-	
 	
 }

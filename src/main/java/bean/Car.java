@@ -1,8 +1,9 @@
-		package bean;
+	package bean;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -59,7 +60,7 @@ public class Car {
 		this.carRegistration = carRegistration;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="car")
+	@OneToMany(fetch = FetchType.LAZY , mappedBy="car",cascade=CascadeType.ALL)
 	@JsonManagedReference
 	public Set<Repair> getRepairs() {
 		return repairs;
