@@ -33,9 +33,12 @@ public class RepairService {
 		repairDao.updateRepair(repair);
 		
 	}
-
+	
 	public void deleteRepair(int id) {
 		repairDao.deleteRepair(id);		
 	}
-	
+	@Transactional
+	public List<Repair> getPendingRepairs() {
+		return repairDao.getPendingRepairs();
+	}
 }

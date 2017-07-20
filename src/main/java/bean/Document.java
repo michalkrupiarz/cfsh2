@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.Calendar;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -22,7 +26,8 @@ public class Document {
 	@Column(name = "type")
 	String type;
 	@Column(name="expirationDate")
-	String expirationDate;
+	@Temporal(TemporalType.DATE)
+	Calendar expirationDate;
 	@ManyToOne
     @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false)
     @JsonBackReference
@@ -39,10 +44,10 @@ public class Document {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getExpirationDate() {
+	public Calendar getExpirationDate() {
 		return expirationDate;
 	}
-	public void setExpirationDate(String expirationDate) {
+	public void setExpirationDate(Calendar expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 	public Car getCar() {
@@ -51,7 +56,7 @@ public class Document {
 	public void setCar(Car car) {
 		this.car = car;
 	}
-	public Document(int id, String type, String expirationDate, Car car) {
+	public Document(int id, String type, Calendar expirationDate, Car car) {
 		super();
 		this.id = id;
 		this.type = type;

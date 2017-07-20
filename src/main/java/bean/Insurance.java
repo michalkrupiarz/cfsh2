@@ -1,11 +1,15 @@
 package bean;
 
+import java.util.Calendar;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -14,12 +18,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name="insurances")
 public class Insurance {
 	int id;
-	String dateStart;
-	String dateEnd;
+	Calendar dateStart;
+	Calendar dateEnd;
 	String note;
 	Float cost;
 	String insCompany;
-	String payDate;
+	Calendar payDate;
 	private Car car;
 	
 	
@@ -32,17 +36,19 @@ public class Insurance {
 		this.id = id;
 	}
 	@Column(name="dateStart")
-	public String getDateStart() {
+	@Temporal(TemporalType.DATE)
+	public Calendar getDateStart() {
 		return dateStart;
 	}
-	public void setDateStart(String dateStart) {
+	public void setDateStart(Calendar dateStart) {
 		this.dateStart = dateStart;
 	}
 	@Column(name="dateEnd")
-	public String getDateEnd() {
+	@Temporal(TemporalType.DATE)
+	public Calendar getDateEnd() {
 		return dateEnd;
 	}
-	public void setDateEnd(String dateEnd) {
+	public void setDateEnd(Calendar dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 	@Column(name="note")
@@ -76,18 +82,19 @@ public class Insurance {
 		this.car = car;
 	}
 	@Column(name="payDate")
-	public String getPayDate() {
+	@Temporal(TemporalType.DATE)
+	public Calendar getPayDate() {
 		return payDate;
 	}
-	public void setPayDate(String payDate) {
+	public void setPayDate(Calendar payDate) {
 		this.payDate = payDate;
 	}
 	public Insurance() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Insurance(int id, String dateStart, String dateEnd, String note, Float cost, String insCompany,
-			String payDate, Car car) {
+	public Insurance(int id, Calendar dateStart, Calendar dateEnd, String note, Float cost, String insCompany,
+			Calendar payDate, Car car) {
 		super();
 		this.id = id;
 		this.dateStart = dateStart;

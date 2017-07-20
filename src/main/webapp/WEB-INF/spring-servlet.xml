@@ -28,7 +28,7 @@
    <beans:list>  
     <beans:value>bean.Car</beans:value>
     <beans:value>bean.carLend</beans:value>  
-    <beans:value>bean.Calendar</beans:value>
+    <beans:value>bean.CarCalendar</beans:value>
     <beans:value>bean.Repair</beans:value>
     <beans:value>bean.Insurance</beans:value>
     <beans:value>bean.Tire</beans:value>

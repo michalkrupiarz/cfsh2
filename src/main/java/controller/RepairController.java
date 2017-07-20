@@ -48,5 +48,10 @@ public class RepairController {
 	 @RequestMapping(value = "/deleteRepair/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")  
 	 public void deleteRepair(@PathVariable("id") int id) {  
 	  repairService.deleteRepair(id);    
-	 }   
+	 }  
+	@CrossOrigin(origins = "http://localhost:8800")
+	 @RequestMapping(value = "/getPendingRepairs", method = RequestMethod.GET, headers = "Accept=application/json")  
+	 public List<Repair> getPendingRepairs(){  
+	  return repairService.getPendingRepairs();  
+	 } 
 }

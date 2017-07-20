@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.Calendar;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -21,10 +25,12 @@ public class carLend {
 	int id;
 	
 	@Column(name="lendStart")
-	String lendStart;
+	@Temporal(TemporalType.DATE)
+	Calendar lendStart;
 	
 	@Column(name="lendEnd")
-	String lendEnd;
+	@Temporal(TemporalType.DATE)
+	Calendar lendEnd;
 		
 	@Column(name="person")
 	String person;
@@ -50,19 +56,19 @@ public class carLend {
 		this.id = id;
 	}
 
-	public String getLendStart() {
+	public Calendar getLendStart() {
 		return lendStart;
 	}
 
-	public void setLendStart(String lendStart) {
+	public void setLendStart(Calendar lendStart) {
 		this.lendStart = lendStart;
 	}
 
-	public String getLendEnd() {
+	public Calendar getLendEnd() {
 		return lendEnd;
 	}
 
-	public void setLendEnd(String lendEnd) {
+	public void setLendEnd(Calendar lendEnd) {
 		this.lendEnd = lendEnd;
 	}
 
@@ -84,7 +90,7 @@ public class carLend {
 		super();
 	}
 	
-	public carLend(int id, String lendStart, String lendEnd, int carId, String person) {
+	public carLend(int id, Calendar lendStart, Calendar lendEnd, int carId, String person) {
 		super();
 		this.id = id;
 		this.lendStart = lendStart;

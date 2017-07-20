@@ -1,6 +1,7 @@
 
 package bean;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -24,8 +27,8 @@ import com.fasterxml.jackson.databind.*;
 public class Checkout {
 
 int id;
-String dateFrom;
-String dateTo;
+Calendar dateFrom;
+Calendar dateTo;
 String note;
 Float cost;
 private Car car;
@@ -41,19 +44,21 @@ public void setId(int id) {
 	this.id = id;
 }
 @Column(name="dateFrom")
-public String getDateFrom() {
+@Temporal(TemporalType.DATE)
+public Calendar getDateFrom() {
 	return dateFrom;
 }
 
-public void setDateFrom(String dateFrom) {
+public void setDateFrom(Calendar dateFrom) {
 	this.dateFrom = dateFrom;
 }
 @Column(name="dateTo")
-public String getDateTo() {
+@Temporal(TemporalType.DATE)
+public Calendar getDateTo() {
 	return dateTo;
 }
 
-public void setDateTo(String dateTo) {
+public void setDateTo(Calendar dateTo) {
 	this.dateTo = dateTo;
 }
 
@@ -91,7 +96,7 @@ public Checkout() {
 	// TODO Auto-generated constructor stub
 }
 
-public Checkout(int id, String dateFrom, String dateTo, String note, Float cost, Car car) {
+public Checkout(int id, Calendar dateFrom, Calendar dateTo, String note, Float cost, Car car) {
 	super();
 	this.id = id;
 	this.dateFrom = dateFrom;

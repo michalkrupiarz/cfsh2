@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.Calendar;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -24,7 +28,8 @@ public class Tire {
 	String type;
 	
 	@Column(name="changeDate")
-	String changeDate;
+	@Temporal(TemporalType.DATE)
+	Calendar changeDate;
 	
 	@ManyToOne
     @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false)
@@ -47,11 +52,11 @@ public class Tire {
 		this.type = type;
 	}
 
-	public String getChangeDate() {
+	public Calendar getChangeDate() {
 		return changeDate;
 	}
 
-	public void setChangeDate(String changeDate) {
+	public void setChangeDate(Calendar changeDate) {
 		this.changeDate = changeDate;
 	}
 
@@ -63,7 +68,7 @@ public class Tire {
 		this.car = car;
 	}
 
-	public Tire(int id, String type, String changeDate, Car car) {
+	public Tire(int id, String type, Calendar changeDate, Car car) {
 		super();
 		this.id = id;
 		this.type = type;

@@ -1,5 +1,6 @@
-	package bean;
+package bean;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -23,8 +26,8 @@ import com.fasterxml.jackson.databind.*;
 public class Repair {
 
 	int id;
-	String dateStart;
-	String dateEnd;
+	Calendar dateStart;
+	Calendar dateEnd;
 	String note;
 	Float cost;
 	private Car car;
@@ -41,20 +44,22 @@ public class Repair {
 	}
 	
 	@Column(name="dateStart")
-	public String getDateStart() {
+	@Temporal(TemporalType.DATE)
+	public Calendar getDateStart() {
 		return dateStart;
 	}
-
-	public void setDateStart(String dateStart) {
+	
+	public void setDateStart(Calendar dateStart) {
 		this.dateStart = dateStart;
 	}
 	
 	@Column(name="dateEnd")
-	public String getDateEnd() {
+	@Temporal(TemporalType.DATE)
+	public Calendar getDateEnd() {
 		return dateEnd;
 	}
 
-	public void setDateEnd(String dateEnd) {
+	public void setDateEnd(Calendar dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 	
@@ -88,20 +93,13 @@ public class Repair {
 		this.car = car;
 	}
 	
-	public Repair(int id, String dateStart, String dateEnd, int carId, String note) {
-		super();
-		this.id = id;
-		this.dateStart = dateStart;
-		this.dateEnd = dateEnd;
-		this.note = note;
-	}
 
 	public Repair() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Repair(int id, String dateStart, String dateEnd, String note, Car car, Float cost) {
+	public Repair(int id, Calendar dateStart, Calendar dateEnd, String note, Car car, Float cost) {
 		super();
 		this.id = id;
 		this.dateStart = dateStart;
