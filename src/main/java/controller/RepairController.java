@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import bean.Car;
 import bean.Repair;
 import hsqlServer.CreateAndPopulateDB;
 import service.RepairService;
@@ -51,4 +52,9 @@ public class RepairController {
 	 public List<Repair> getPendingRepairs(){  
 	  return repairService.getPendingRepairs();  
 	 } 
+	@CrossOrigin(origins = "http://localhost:8800")
+	@RequestMapping(value = "/getRepairsThatEndInDays/{days}", method = RequestMethod.GET, headers = "Accept=application/json")  
+	 public List<Repair> getRepairsThatEndInDays(@PathVariable int days) {  
+	  return repairService.getRepairsThatEndInDays(days);  
+	 }  
 }

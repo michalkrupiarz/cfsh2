@@ -41,4 +41,8 @@ public class RepairService {
 	public List<Repair> getPendingRepairs() {
 		return repairDao.getPendingRepairs();
 	}
+	@Transactional
+	public List<Repair> getRepairsThatEndInDays(int daysToEnd){
+		return repairDao.getRepairsThatAreToEndInDays(daysToEnd);
+	}
 }

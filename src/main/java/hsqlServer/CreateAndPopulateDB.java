@@ -1,4 +1,4 @@
-package hsqlServer;
+	package hsqlServer;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

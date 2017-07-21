@@ -1,5 +1,6 @@
 	package bean;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,14 +17,17 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Check;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.*;
 
 
 @Entity
 @Table(name="cars")
-public class Car {
+public class Car{
 	int id;
 	String carName;
 	String carRegistration;
@@ -60,8 +64,8 @@ public class Car {
 		this.carRegistration = carRegistration;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY , mappedBy="car",cascade=CascadeType.ALL)
-	@JsonManagedReference
+	@OneToMany(targetEntity= Repair.class, fetch = FetchType.LAZY , mappedBy="car",cascade=CascadeType.ALL)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	public Set<Repair> getRepairs() {
 		return repairs;
 	}
