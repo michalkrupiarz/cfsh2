@@ -25,6 +25,9 @@ public class DocumentDao {
 	 public List<Document> getAllDocuments() {  
 		  Session session = this.sessionFactory.getCurrentSession();  
 		  List<Document> DocumentList = session.createQuery("from Document").list();  
+		  for (Document d:DocumentList) {
+			  System.out.println(d.getCar());
+		  }
 		  return DocumentList;  
 		 }  
 		 	 

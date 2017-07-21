@@ -25,6 +25,9 @@ public class InsuranceDao {
 		Session session = this.sessionFactory.getCurrentSession();
 	
 		List<Insurance> insuranceList = session.createQuery("from Insurance").list();
+		for (Insurance i:insuranceList) {
+			System.out.println(i.getCar());
+		}
 		return insuranceList;
 	}
 	

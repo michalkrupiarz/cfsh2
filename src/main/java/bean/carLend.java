@@ -2,8 +2,10 @@ package bean;
 
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="lends")
@@ -35,10 +39,11 @@ public class carLend {
 	@Column(name="person")
 	String person;
 	
-	@ManyToOne
-	@JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false)
-	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	private Car car;
+	
 	
 	public Car getCar() {
 		return car;
@@ -55,7 +60,7 @@ public class carLend {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	public Calendar getLendStart() {
 		return lendStart;
 	}

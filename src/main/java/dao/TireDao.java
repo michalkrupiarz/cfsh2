@@ -22,7 +22,10 @@ public class TireDao {
 
 	 public List<Tire> getAllTires() {  
 		  Session session = this.sessionFactory.getCurrentSession();  
-		  List<Tire> tiresList = session.createQuery("from Tires").list();  
+		  List<Tire> tiresList = session.createQuery("from Tire").list();  
+		  for (Tire t:tiresList) {
+			  System.out.println(t.getCar());
+		  }
 		  return tiresList;  
 		 }  
 		 
@@ -36,7 +39,7 @@ public class TireDao {
 		  
 		 public Tire addTires(Tire tires) {  
 		  Session session = this.sessionFactory.getCurrentSession();
-		  tires.setId(GeneralQuerrys.maxIdFromTable("select max(tires.id) from Tires tires",session)); 
+		  tires.setId(GeneralQuerrys.maxIdFromTable("select max(tires.id) from Tire tires",session)); 
 		  System.out.println(tires.toString());
 		  session.merge(tires);  
 		  return tires;  

@@ -2,8 +2,10 @@ package bean;
 
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "tires")
@@ -31,9 +35,9 @@ public class Tire {
 	@Temporal(TemporalType.DATE)
 	Calendar changeDate;
 	
-	@ManyToOne
-    @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false)
-    @JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	private Car car;
 
 	public int getId() {

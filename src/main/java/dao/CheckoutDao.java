@@ -25,6 +25,9 @@ public class CheckoutDao {
 	 public List<Checkout> getAllCheckouts() {  
 		  Session session = this.sessionFactory.getCurrentSession();  
 		  List<Checkout> checkoutList = session.createQuery("from Checkout").list();  
+		  for (Checkout c : checkoutList) {
+			  System.out.println(c.getCar());
+		  }
 		  return checkoutList;  
 		 }  
 		 	 

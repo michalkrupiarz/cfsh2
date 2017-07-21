@@ -73,8 +73,8 @@ public class Car{
 		this.repairs= repairs;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
-	@JsonManagedReference
+	@OneToMany(targetEntity = carLend.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.ALL)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	public Set<carLend> getLends() {
 		return lends;
 	}
@@ -82,8 +82,8 @@ public class Car{
 		this.lends = lends;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
-	@JsonManagedReference	
+	@OneToMany(targetEntity = Insurance.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.ALL)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
 	public Set<Insurance> getInsurances() {
 		return insurances;
 	}
@@ -94,24 +94,24 @@ public class Car{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
-	@JsonManagedReference	
+	@OneToMany(targetEntity = Tire.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.ALL)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
 	public Set<Tire> getTires() {
 		return tires;
 	}
 	public void setTires(Set<Tire> tires) {
 		this.tires = tires;
 	}
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
-	@JsonManagedReference	
+	@OneToMany(targetEntity = Document.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.ALL)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
 	public Set<Document> getDoc() {
 		return doc;
 	}
 	public void setDoc(Set<Document> doc) {
 		this.doc = doc;
 	}
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
-	@JsonManagedReference	
+	@OneToMany(targetEntity = Checkout.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.ALL)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
 	public Set<Checkout> getCheck() {
 		return check;
 	}

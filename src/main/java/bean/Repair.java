@@ -62,7 +62,7 @@ public class Repair {
 	public Calendar getDateEnd() {
 		return dateEnd;
 	}
-
+	
 	public void setDateEnd(Calendar dateEnd) {
 		this.dateEnd = dateEnd;
 	}

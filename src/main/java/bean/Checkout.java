@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +20,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.*;
 
 @Entity
@@ -80,9 +83,9 @@ public void setCost(Float cost) {
 	this.cost = cost;
 }
 
-@ManyToOne
-@JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false)
-@JsonBackReference
+@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+@JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public Car getCar() {
 	return car;
 }
