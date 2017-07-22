@@ -25,16 +25,23 @@ public class RepairDao {
 	
 	 @Autowired  
 	 private SessionFactory sessionFactory;  
+	 
+	 private ReusableDaos rD;
 	  
 	 public void setSessionFactory(SessionFactory sf) {  
 	  this.sessionFactory = sf;  
 	 }  
 
 	 public List<Repair> getAllRepairs() {  
-		  Session session = this.sessionFactory.getCurrentSession();  
-		  List<Repair> repairList = session.createQuery("from Repair").list();  
-		  for (Repair r:repairList) {
-			  System.out.println("this is car from repair "+r.getCar());
+		 Session session = this.sessionFactory.getCurrentSession();  
+		  ReusableDaos rDao = new ReusableDaos();
+		//  List<Repair> repairList = session.createQuery("from Repair").list(); 
+		  Repair r = new Repair();
+		  r.setCost((float) 12);
+		  Class<? extends Repair> senior = r.getClass();
+		  List<Repair> repairList = (List<Repair>) rDao.getAll(r.getClass(), session);
+		  for (Repair rL:repairList) {
+			  System.out.println("this is car from repair "+rL.getCar());
 		  }
 		  return repairList;  
 		 }  
@@ -69,9 +76,9 @@ public class RepairDao {
 		 }   
 	 public List<Repair> getPendingRepairs() {
 		 Calendar currentDate = Calendar.getInstance();
+		 Repair rep = new Repair();
 		 Session session = this.sessionFactory.getCurrentSession();  
 		 Query q = session.createQuery("from Repair r where r.dateEnd >=:cDate");
-		 System.out.println(currentDate.toString());
 		 q.setParameter("cDate", currentDate);
 		 List <Repair> repairList = q.list();
 		 return repairList;  
@@ -83,15 +90,14 @@ public class RepairDao {
 		 int month = 7;//cDate.getMonthValue();
 		 Session s = this.sessionFactory.getCurrentSession();
 		 Query q = s.createQuery("select r.dateEnd , day(r.dateEnd) , month(r.dateEnd) from Repair r where (((day(r.dateEnd)-:dTE) =:cDay) and (month(r.dateEnd)=:cMonth))");
-		 //where (day(r.dateEnd)-:dTE) =:cDay and month(r.dateEnd) = :cMonth
-	//	 Query q = s.createQuery("from Repair r where month(r.dateEnd)=:cMonth and day(r.dateEnd)-:dTE=:cDay");
 		 q.setParameter("cDay", day);
      	 q.setParameter("cMonth", month);
          q.setParameter("dTE", daysToEnd);
 		 List<Repair> repairList = q.list();
-	//		 for (Repair r:repairList) {
-	//			  System.out.println("this is car from repair "+r.getCar());
-	//		  }
+			 for (Repair r:repairList) {
+				  System.out.println("this is car from repair "+r.getCar());
+			  }
+			 
 		 return repairList;
 	 }
 }	
