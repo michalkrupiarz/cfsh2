@@ -39,6 +39,11 @@ public class Tire {
     @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	private Car car;
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="statusId",updatable=false, insertable=false,nullable=false)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	private Status status;
 
 	public int getId() {
 		return id;
@@ -72,12 +77,22 @@ public class Tire {
 		this.car = car;
 	}
 
-	public Tire(int id, String type, Calendar changeDate, Car car) {
+	
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+		
+	public Tire(int id, String type, Calendar changeDate, Car car, Status status) {
 		super();
 		this.id = id;
 		this.type = type;
 		this.changeDate = changeDate;
 		this.car = car;
+		this.status = status;
 	}
 
 	public Tire() {

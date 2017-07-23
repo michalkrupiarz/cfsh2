@@ -29,6 +29,7 @@ public class Insurance {
 	String insCompany;
 	Calendar payDate;
 	private Car car;
+	private Status status;
 	
 	
 	@Id
@@ -93,12 +94,21 @@ public class Insurance {
 	public void setPayDate(Calendar payDate) {
 		this.payDate = payDate;
 	}
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="statusId",updatable=false, insertable=false,nullable=false)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	public Status getStatus() {
+		return status;
+	}
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 	public Insurance() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Insurance(int id, Calendar dateStart, Calendar dateEnd, String note, Float cost, String insCompany,
-			Calendar payDate, Car car) {
+			Calendar payDate, Car car, Status status) {
 		super();
 		this.id = id;
 		this.dateStart = dateStart;
@@ -108,8 +118,7 @@ public class Insurance {
 		this.insCompany = insCompany;
 		this.payDate = payDate;
 		this.car = car;
+		this.status = status;
 	}
-
-
 	
 }

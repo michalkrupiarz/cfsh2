@@ -25,6 +25,7 @@ public class TireDao {
 		  List<Tire> tiresList = session.createQuery("from Tire").list();  
 		  for (Tire t:tiresList) {
 			  System.out.println(t.getCar());
+			  System.out.println(t.getStatus());
 		  }
 		  return tiresList;  
 		 }  
