@@ -38,7 +38,6 @@ public class RepairDao {
 		//  List<Repair> repairList = session.createQuery("from Repair").list(); 
 		  Repair r = new Repair();
 		  r.setCost((float) 12);
-		  Class<? extends Repair> senior = r.getClass();
 		  List<Repair> repairList = (List<Repair>) rDao.getAll(r.getClass(), session);
 		  for (Repair rL:repairList) {
 			  System.out.println("this is car from repair "+rL.getCar());
