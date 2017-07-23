@@ -35,6 +35,7 @@ public class Repair {
 	String note;
 	Float cost;
 	private Car car;
+	private Status status;
 	
 	@Id
 	@Column(name="id")
@@ -92,9 +93,35 @@ public class Repair {
 	public Car getCar() {	
 		return car;
 	}
-
+	
 	public void setCar(Car car) {
 		this.car = car;
+	}
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="statusId",updatable=false, insertable=false,nullable=false)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public Repair(int id, Calendar dateStart, Calendar dateEnd, String note, Float cost, Car car, Status status) {
+		super();
+		this.id = id;
+		this.dateStart = dateStart;
+		this.dateEnd = dateEnd;
+		this.note = note;
+		this.cost = cost;
+		this.car = car;
+		this.status = status;
+	}
+
+	public Repair() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 }

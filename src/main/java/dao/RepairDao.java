@@ -35,12 +35,12 @@ public class RepairDao {
 	 public List<Repair> getAllRepairs() {  
 		 Session session = this.sessionFactory.getCurrentSession();  
 		  ReusableDaos rDao = new ReusableDaos();
-		//  List<Repair> repairList = session.createQuery("from Repair").list(); 
 		  Repair r = new Repair();
 		  r.setCost((float) 12);
 		  List<Repair> repairList = (List<Repair>) rDao.getAll(r.getClass(), session);
 		  for (Repair rL:repairList) {
 			  System.out.println("this is car from repair "+rL.getCar());
+			  System.out.println("this is repair status "+rL.getStatus());
 		  }
 		  return repairList;  
 		 }  

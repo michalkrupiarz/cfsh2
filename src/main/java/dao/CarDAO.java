@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;  
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import dao.GeneralQuerrys;
 
 import bean.Car;
+import bean.Checkout;
 import bean.Repair;  
   
 @Repository 
@@ -32,11 +35,20 @@ public class CarDAO {
   List<Car> carList = session.createQuery("from Car").list();  
   for (Car c : carList){
 		 System.out.println(c.getRepairs());
+		 Set<Repair> reps = c.getRepairs();	
+		 for (Repair r:reps ) {
+			 System.out.println(r.getStatus());
+		 }
+		 
 		 System.out.println(c.getLends());
 		 System.out.println(c.getInsurances());
 		 System.out.println(c.getTires());
 		 System.out.println(c.getDoc());
 		 System.out.println(c.getCheck());
+		 Set<Checkout> check = c.getCheck();
+		 for(Checkout ch:check) {
+			 System.out.println(ch.getStatus());
+		 }
 	 }
   return carList;  
  }  

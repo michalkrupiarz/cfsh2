@@ -27,6 +27,7 @@ public class CheckoutDao {
 		  List<Checkout> checkoutList = session.createQuery("from Checkout").list();  
 		  for (Checkout c : checkoutList) {
 			  System.out.println(c.getCar());
+			  System.out.println(c.getStatus());
 		  }
 		  return checkoutList;  
 		 }  

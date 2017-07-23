@@ -35,6 +35,7 @@ Calendar dateTo;
 String note;
 Float cost;
 private Car car;
+private Status status;
 
 @Id
 @Column(name="id")
@@ -94,12 +95,23 @@ public void setCar(Car car) {
 	this.car = car;
 }
 
+@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+@JoinColumn(name = "statusId", updatable = false, insertable = false, nullable=false		)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public Status getStatus() {
+	return status;
+}
+
+public void setStatus(Status status) {
+	this.status = status;
+}
+
 public Checkout() {
 	super();
 	// TODO Auto-generated constructor stub
-}
 
-public Checkout(int id, Calendar dateFrom, Calendar dateTo, String note, Float cost, Car car) {
+}
+public Checkout(int id, Calendar dateFrom, Calendar dateTo, String note, Float cost, Car car, Status status) {
 	super();
 	this.id = id;
 	this.dateFrom = dateFrom;
@@ -107,8 +119,8 @@ public Checkout(int id, Calendar dateFrom, Calendar dateTo, String note, Float c
 	this.note = note;
 	this.cost = cost;
 	this.car = car;
+	this.status = status;
 }
-
 
 }
 
