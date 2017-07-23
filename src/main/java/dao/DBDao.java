@@ -19,7 +19,7 @@ public class DBDao {
 	@Autowired
 	private SessionFactory sessionFactory;  
 	 
-	private List<String> tableNames = Arrays.asList("checkouts","documents","tires","insurances","calendar","lends","repairs","cars");
+	private List<String> tableNames = Arrays.asList("checkouts","documents","tires","insurances","calendar","lends","repairs","status","cars");
 		
 	 public void setSessionFactory(SessionFactory sf) {  
 	  this.sessionFactory = sf;  

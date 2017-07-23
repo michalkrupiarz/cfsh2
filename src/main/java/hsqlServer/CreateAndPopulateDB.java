@@ -68,6 +68,7 @@ public class CreateAndPopulateDB {
 	public static void checkOrCreateTable(CreateAndPopulateDB db) throws Exception{
 		
 		carsTable(db);
+		statusTable(db);
 		calendarTable(db);
 		lendTable(db);
 		repairsTable(db);
@@ -75,6 +76,8 @@ public class CreateAndPopulateDB {
 		tiresTable(db);
 		documentsTable(db);
 		checkoutTable(db);
+		
+		
 	}
 	
 	public static void checkoutTable(CreateAndPopulateDB db){
@@ -109,5 +112,8 @@ public class CreateAndPopulateDB {
 		List<String> table = createTablesHelper.createAndPopulateLendTable();
         createTable(db,table);
 	}
-	
+	public static void statusTable(CreateAndPopulateDB db) {
+		List<String> t = createTablesHelper.createAndPopulateStatusTable();
+		createTable(db,t);
+	}
 }
