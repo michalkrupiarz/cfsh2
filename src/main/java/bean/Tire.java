@@ -24,18 +24,14 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "tires")
 public class Tire {
 
-	
+
 	int id;
-	
-	
+
 	String type;
-	
 	
 	Calendar changeDate;
 	
-	
 	private Car car;
-	
 	
 	@JsonIgnoreProperties("status")
 	private Status status;
