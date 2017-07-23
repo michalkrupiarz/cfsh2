@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.*;
@@ -85,8 +86,9 @@ public void setCost(Float cost) {
 }
 
 @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-@JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JoinColumn(name = "statusId", updatable = false, insertable = false, nullable=false		)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties("check")
 public Car getCar() {
 	return car;
 }
@@ -97,7 +99,8 @@ public void setCar(Car car) {
 
 @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
 @JoinColumn(name = "statusId", updatable = false, insertable = false, nullable=false		)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties("status")
 public Status getStatus() {
 	return status;
 }

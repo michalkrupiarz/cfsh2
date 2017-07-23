@@ -17,34 +17,32 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "tires")
 public class Tire {
 
+	
+	int id;
+	
+	
+	String type;
+	
+	
+	Calendar changeDate;
+	
+	
+	private Car car;
+	
+	
+	@JsonIgnoreProperties("status")
+	private Status status;
+	
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	int id;
-	
-	@Column(name="type")
-	String type;
-	
-	@Column(name="changeDate")
-	@Temporal(TemporalType.DATE)
-	Calendar changeDate;
-	
-	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	private Car car;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="statusId",updatable=false, insertable=false,nullable=false)
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	private Status status;
-
 	public int getId() {
 		return id;
 	}
@@ -52,7 +50,7 @@ public class Tire {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	@Column(name="type")
 	public String getType() {
 		return type;
 	}
@@ -60,7 +58,8 @@ public class Tire {
 	public void setType(String type) {
 		this.type = type;
 	}
-
+	@Column(name="changeDate")
+	@Temporal(TemporalType.DATE)
 	public Calendar getChangeDate() {
 		return changeDate;
 	}
@@ -68,7 +67,10 @@ public class Tire {
 	public void setChangeDate(Calendar changeDate) {
 		this.changeDate = changeDate;
 	}
-
+	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@JsonIgnoreProperties("tires")
 	public Car getCar() {
 		return car;
 	}
@@ -76,8 +78,10 @@ public class Tire {
 	public void setCar(Car car) {
 		this.car = car;
 	}
-
-	
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="statusId",updatable=false, insertable=false,nullable=false)
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@JsonIgnoreProperties("status")
 	public Status getStatus() {
 		return status;
 	}

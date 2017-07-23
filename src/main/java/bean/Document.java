@@ -17,54 +17,63 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="documents")
 public class Document {
 	
+	
+	int id;
+	
+	String type;
+	
+	Calendar expirationDate;
+	
+	private Car car;
+	
+	private Status status;
+	
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	int id;
-	@Column(name = "type")
-	String type;
-	@Column(name="expirationDate")
-	@Temporal(TemporalType.DATE)
-	Calendar expirationDate;
-	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	private Car car;
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="statusId",updatable=false, insertable=false,nullable=false)
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	private Status status;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
+	@Column(name = "type")
 	public String getType() {
 		return type;
 	}
 	public void setType(String type) {
 		this.type = type;
 	}
+	@Column(name="expirationDate")
+	@Temporal(TemporalType.DATE)
 	public Calendar getExpirationDate() {
 		return expirationDate;
 	}
 	public void setExpirationDate(Calendar expirationDate) {
 		this.expirationDate = expirationDate;
 	}
+	
+	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+	@JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@JsonIgnoreProperties("doc")
 	public Car getCar() {
 		return car;
 	}
 	public void setCar(Car car) {
 		this.car = car;
 	}
-	
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="statusId",updatable=false, insertable=false,nullable=false)
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@JsonIgnoreProperties("status")
 	public Status getStatus() {
 		return status;
 	}

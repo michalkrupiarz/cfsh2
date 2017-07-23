@@ -1,8 +1,10 @@
 	package bean;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +22,7 @@ import org.springframework.core.env.SystemEnvironmentPropertySource;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.*;
@@ -27,16 +30,18 @@ import com.fasterxml.jackson.databind.*;
 
 @Entity
 @Table(name="cars")
+
 public class Car{
 	int id;
 	String carName;
 	String carRegistration;
-	private Set<Repair> repairs = new HashSet<Repair>(0);
-	private Set<carLend> lends = new HashSet<carLend>(0);
-	private Set<Insurance> insurances = new HashSet<Insurance>(0);
-	private Set<Tire> tires = new HashSet<Tire>(0);
-	private Set<Document> doc = new HashSet<Document>(0);
-	private Set<Checkout> check = new HashSet<Checkout>(0);
+	//private List<Repair> repairs = new ArrayList<Repair>(0);
+	private List<Repair> repairs = new ArrayList<>();
+	private List<carLend> lends = new ArrayList<>();
+	private List<Insurance> insurances = new ArrayList<>();
+	private List<Tire> tires = new ArrayList<>(0);
+	private List<Document> doc = new ArrayList<>();
+	private List<Checkout> check = new ArrayList<>();
 	
 	@Id
 	@Column(name = "id")
@@ -65,29 +70,32 @@ public class Car{
 	}
 	
 	@OneToMany(targetEntity= Repair.class, fetch = FetchType.LAZY , mappedBy="car",cascade=CascadeType.ALL)
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	public Set<Repair> getRepairs() {
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@JsonIgnoreProperties({"car"})
+	public List<Repair> getRepairs() {
 		return repairs;
 	}
-	public void setRepairs(Set<Repair> repairs) {
+	public void setRepairs(List<Repair> repairs) {
 		this.repairs= repairs;
 	}
 	
 	@OneToMany(targetEntity = carLend.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.ALL)
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	public Set<carLend> getLends() {
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@JsonIgnoreProperties("car")
+	public List<carLend> getLends() {
 		return lends;
 	}
-	public void setLends(Set<carLend> lends) {
+	public void setLends(List<carLend> lends) {
 		this.lends = lends;
 	}
 	
 	@OneToMany(targetEntity = Insurance.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.ALL)
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
-	public Set<Insurance> getInsurances() {
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
+	@JsonIgnoreProperties("car")
+	public List<Insurance> getInsurances() {
 		return insurances;
 	}
-	public void setInsurances(Set<Insurance> insurances) {
+	public void setInsurances(List<Insurance> insurances) {
 		this.insurances = insurances;
 	}
 	public Car() {
@@ -95,27 +103,30 @@ public class Car{
 		// TODO Auto-generated constructor stub
 	}
 	@OneToMany(targetEntity = Tire.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.ALL)
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
-	public Set<Tire> getTires() {
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
+	@JsonIgnoreProperties("car")
+	public List<Tire> getTires() {
 		return tires;
 	}
-	public void setTires(Set<Tire> tires) {
+	public void setTires(List<Tire> tires) {
 		this.tires = tires;
 	}
 	@OneToMany(targetEntity = Document.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.ALL)
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
-	public Set<Document> getDoc() {
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
+	@JsonIgnoreProperties("car")
+	public List<Document> getDoc() {
 		return doc;
 	}
-	public void setDoc(Set<Document> doc) {
+	public void setDoc(List<Document> doc) {
 		this.doc = doc;
 	}
 	@OneToMany(targetEntity = Checkout.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.ALL)
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
-	public Set<Checkout> getCheck() {
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
+	@JsonIgnoreProperties("car")
+	public List<Checkout> getCheck() {
 		return check;
 	}
-	public void setCheck(Set<Checkout> check) {
+	public void setCheck(List<Checkout> check) {
 		this.check = check;
 	}
 	
