@@ -18,7 +18,8 @@ import dao.GeneralQuerrys;
 import bean.Car;
 import bean.Checkout;
 import bean.Document;
-import bean.Repair;  
+import bean.Repair;
+import bean.carLend;  
   
 @Repository 
 @Transactional
@@ -40,8 +41,11 @@ public class CarDAO {
 		 for (Repair r:reps ) {
 			 System.out.println(r.getStatus());
 		 }
-		 
 		 System.out.println(c.getLends());
+		 Set <carLend> cLends = c.getLends();
+		 for (carLend lend:cLends) {
+			 System.out.println(lend.getStatus());
+		 }
 		 System.out.println(c.getInsurances());
 		 System.out.println(c.getTires());
 		 System.out.println(c.getDoc());

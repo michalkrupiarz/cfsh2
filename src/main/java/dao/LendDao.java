@@ -26,6 +26,7 @@ public class LendDao {
 		List<carLend> lendList = session.createQuery("from carLend").list();
 		for (carLend l:lendList) {
 			System.out.println(l.getCar());
+			System.out.println(l.getStatus());
 		}
 		return lendList;
 	}

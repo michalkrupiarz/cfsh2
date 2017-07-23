@@ -44,6 +44,10 @@ public class carLend {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	private Car car;
 	
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="statusId",updatable=false, insertable=false,nullable=false)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	private Status status;
 	
 	public Car getCar() {
 		return car;
@@ -84,23 +88,31 @@ public class carLend {
 	public void setPerson(String person) {
 		this.person = person;
 	}
+	
+	
+	
+	public Status getStatus() {
+		return status;
+	}
 
-//	@Override
-//	public String toString() {
-//		return "carLend [id=" + id + ", lendStart=" + lendStart + ", lendEnd=" + lendEnd + ", carId=" + carId
-//				+ ", person=" + person + "]";
-//	}
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
 	public carLend(){
 		super();
 	}
-	
-	public carLend(int id, Calendar lendStart, Calendar lendEnd, int carId, String person) {
+
+	public carLend(int id, Calendar lendStart, Calendar lendEnd, String person, Car car, Status status) {
 		super();
 		this.id = id;
 		this.lendStart = lendStart;
 		this.lendEnd = lendEnd;
 		this.person = person;
+		this.car = car;
+		this.status = status;
 	}
+
+	
 	
 }
