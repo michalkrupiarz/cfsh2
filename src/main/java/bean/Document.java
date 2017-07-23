@@ -36,6 +36,10 @@ public class Document {
     @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	private Car car;
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="statusId",updatable=false, insertable=false,nullable=false)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	private Status status;
 	public int getId() {
 		return id;
 	}
@@ -60,12 +64,21 @@ public class Document {
 	public void setCar(Car car) {
 		this.car = car;
 	}
-	public Document(int id, String type, Calendar expirationDate, Car car) {
+	
+	public Status getStatus() {
+		return status;
+	}
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
+	public Document(int id, String type, Calendar expirationDate, Car car, Status status) {
 		super();
 		this.id = id;
 		this.type = type;
 		this.expirationDate = expirationDate;
 		this.car = car;
+		this.status = status;
 	}
 	public Document() {
 		super();

@@ -27,6 +27,7 @@ public class DocumentDao {
 		  List<Document> DocumentList = session.createQuery("from Document").list();  
 		  for (Document d:DocumentList) {
 			  System.out.println(d.getCar());
+			  System.out.println(d.getStatus());
 		  }
 		  return DocumentList;  
 		 }  

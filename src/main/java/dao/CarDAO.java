@@ -17,6 +17,7 @@ import dao.GeneralQuerrys;
 
 import bean.Car;
 import bean.Checkout;
+import bean.Document;
 import bean.Repair;  
   
 @Repository 
@@ -44,9 +45,13 @@ public class CarDAO {
 		 System.out.println(c.getInsurances());
 		 System.out.println(c.getTires());
 		 System.out.println(c.getDoc());
+		 Set<Document> documents = c.getDoc();
+		 for (Document d:documents) {
+			 System.out.println(d.getStatus());
+		 }
 		 System.out.println(c.getCheck());
-		 Set<Checkout> check = c.getCheck();
-		 for(Checkout ch:check) {
+		 Set<Checkout> checks = c.getCheck();
+		 for(Checkout ch:checks) {
 			 System.out.println(ch.getStatus());
 		 }
 	 }
