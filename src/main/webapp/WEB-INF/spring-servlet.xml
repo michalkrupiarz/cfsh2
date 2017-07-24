@@ -11,7 +11,7 @@
 
  <resources mapping="/resources/**" location="/resources/" />  
   
- <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  
+<!-- <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  
   destroy-method="close">  
   <beans:property name="driverClassName" value="org.hsqldb.jdbc.JDBCDriver" />  
   <beans:property name="url"  
@@ -19,7 +19,17 @@
   <beans:property name="username" value="SA" />  
   <beans:property name="password" value="" />  
  </beans:bean>  
-
+ -->
+ 
+ <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  
+  destroy-method="close">  
+  <beans:property name="driverClassName" value="org.postgresql.Driver" />  
+  <beans:property name="url"  
+   value="jdbc:postgresql://localhost:5432/carFleet"/>  
+  <beans:property name="username" value="postgres" />  
+  <beans:property name="password" value="3edcFvgy7" />  
+ </beans:bean>  
+ 
  <!-- Hibernate 4 SessionFactory Bean definition -->  
  <beans:bean id="hibernate4AnnotatedSessionFactory"  
   class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">  
@@ -39,7 +49,9 @@
   </beans:property>  
   <beans:property name="hibernateProperties">  
    <beans:props>  
-    <beans:prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect 
+   <!--  <beans:prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect 
+    --> 
+    <beans:prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect
     </beans:prop>  
     <beans:prop key="hibernate.show_sql">true</beans:prop>  
    </beans:props>  

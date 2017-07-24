@@ -36,8 +36,98 @@ public class CarDAO {
   
  public List<Car> getAllCars() {  
   Session session = this.sessionFactory.getCurrentSession();  
-  List<Car> carList = session.createQuery("from Car").list();  
-  for (Car c : carList){
+  ReusableDaos rDao = new ReusableDaos();
+  Car c = new Car();
+  List<Car> carList = (List<Car>) rDao.getAll(c.getClass(), session);
+  carList = setAllSubList(carList);
+  return carList;  
+ }  
+  /**
+  * 
+  * @return List of Cars that repairs are not null
+  */
+ public List<Car> getAllCarsWithPendingRepairs(){
+	 Session s = this.sessionFactory.getCurrentSession();
+	 ReusableDaos rDao = new ReusableDaos();
+	 Car c = new Car();
+	 String name = "car";
+	 String joinPart =  "join fetch car.repairs r "+
+	    				"join  fetch r.status s ";
+	 String wereClause = "s.id = 1";
+	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
+	 carList = setAllSubList(carList); 
+	 return carList;
+ }
+  
+ public List<Car> getAllCarsWithRepairs(){
+	 Session s = this.sessionFactory.getCurrentSession();
+	 ReusableDaos rDao = new ReusableDaos();
+	 Car c = new Car();
+	 String name = "car";
+	 String joinPart = "join fetch car.repairs";
+	 List<Car> carList = (List<Car>) rDao.getCarsWithSubClass(c.getClass(), s, joinPart, name);
+//	 List<Car> carList = s.createQuery("select distinct car from Car car "
+//	 		+ "join fetch car.repairs").list();
+	 carList = setAllSubList(carList);
+	 return carList;
+ }
+ 
+ public List<Car> getAllCarsWithPendingTires(){
+	 Session s = this.sessionFactory.getCurrentSession();
+	 ReusableDaos rDao = new ReusableDaos();
+	 Car c = new Car();
+	 String name = "car";
+	 String joinPart =  "join fetch car.tires t "+
+	    				"join  fetch t.status s ";
+	 String wereClause = "s.id = 1";
+	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
+	 carList = setAllSubList(carList); 
+	 return carList;
+ } 
+ 
+ public List<Car> getAllCarsWithTires(){
+	 Session s = this.sessionFactory.getCurrentSession();
+	 ReusableDaos rDao = new ReusableDaos();
+	 Car c = new Car();
+	 String name = "car";
+	 String joinPart = "join fetch car.tires";
+	 List<Car> carList = (List<Car>) rDao.getCarsWithSubClass(c.getClass(), s, joinPart, name);
+//	 List<Car> carList = s.createQuery("select distinct car from Car car "
+//	 		+ "join fetch car.repairs").list();
+	 carList = setAllSubList(carList);
+	 return carList;
+ }
+ 
+ public Car getCar(int id) {  
+  Session session = this.sessionFactory.getCurrentSession();  
+  Car car = (Car) session.get(Car.class, new Integer(id)); 
+  return car;  
+ }  
+  
+ public Car addCar(Car car) {  
+  Session session = this.sessionFactory.getCurrentSession();
+  car.setId(GeneralQuerrys.maxIdFromTable("select max(cars.id) from Car cars",session)); 
+  System.out.println(car.toString());
+  session.merge(car);  
+  return car;  
+ }  
+  
+ public void updateCar(Car car) {  
+  Session session = this.sessionFactory.getCurrentSession();  
+  session.update(car);  
+ }  
+  
+ public void deleteCar(int id) {  
+ 
+  Session session = this.sessionFactory.getCurrentSession();  
+  Car p = (Car) session.load(Car.class, new Integer(id));  
+  System.out.println(p.getCarName());
+  if (null != p) {  
+   session.delete(p);  
+  }  
+ }
+ private List<Car> setAllSubList(List<Car> carList) {
+	 for (Car c : carList){
 		 System.out.println(c.getRepairs());
 		 List<Repair> reps = c.getRepairs();	
 		 for (Repair r:reps ) {
@@ -69,52 +159,6 @@ public class CarDAO {
 			 System.out.println(ch.getStatus());
 		 }
 	 }
-  return carList;  
- }  
- /**
-  * 
-  * @return List of Cars that repairs are not null
-  */
- public List<Car> getAllCarsWithRepairs(){
-	 Session s = this.sessionFactory.getCurrentSession();
-	 	 
-	 List<Car> carList = s.createQuery("select distinct car from Car car "
-		+ "join car.repairs").list();
-	 
-	 for (Car c : carList){
-		 System.out.println(c.getRepairs());
-		 System.out.println(c.getLends());
-	 }
-	 
-	 return carList;
+	return carList;
+ 	}
  }
- 
- public Car getCar(int id) {  
-  Session session = this.sessionFactory.getCurrentSession();  
-  Car car = (Car) session.get(Car.class, new Integer(id)); 
-  return car;  
- }  
-  
- public Car addCar(Car car) {  
-  Session session = this.sessionFactory.getCurrentSession();
-  car.setId(GeneralQuerrys.maxIdFromTable("select max(cars.id) from Car cars",session)); 
-  System.out.println(car.toString());
-  session.merge(car);  
-  return car;  
- }  
-  
- public void updateCar(Car car) {  
-  Session session = this.sessionFactory.getCurrentSession();  
-  session.update(car);  
- }  
-  
- public void deleteCar(int id) {  
- 
-  Session session = this.sessionFactory.getCurrentSession();  
-  Car p = (Car) session.load(Car.class, new Integer(id));  
-  System.out.println(p.getCarName());
-  if (null != p) {  
-   session.delete(p);  
-  }  
- }   
-}  

@@ -29,11 +29,33 @@ public class CarController {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:8800")
+	@RequestMapping(value="/getAllCarsWithPendingRepairs",method = RequestMethod.GET, headers = "Accept=application/json")
+	public List<Car> getCarsWithPendingRepairs() throws Exception{
+		List<Car>lOC = carService.getAllCarsWithPendingRepairs();
+		return lOC; 
+	}
+	
+	@CrossOrigin(origins = "http://localhost:8800")
 	@RequestMapping(value="/getAllCarsWithRepairs",method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<Car> getCarsWithReparis() throws Exception{
+	public List<Car> getCarsWithRepairs() throws Exception{
 		List<Car>lOC = carService.getAllCarsWithRepairs();
 		return lOC; 
 	}
+	
+	@CrossOrigin(origins = "http://localhost:8800")
+	@RequestMapping(value="/getAllCarsWithPendingTires",method = RequestMethod.GET, headers = "Accept=application/json")
+	public List<Car> getCarsWithPendingTires() throws Exception{
+		List<Car>lOC = carService.getAllCarsWithPendingTires();
+		return lOC; 
+	}
+	
+	@CrossOrigin(origins = "http://localhost:8800")
+	@RequestMapping(value="/getAllCarsWithTires",method = RequestMethod.GET, headers = "Accept=application/json")
+	public List<Car> getCarsWithTires() throws Exception{
+		List<Car>lOC = carService.getAllCarsWithTires();
+		return lOC; 
+	}
+	
 	@CrossOrigin(origins = "http://localhost:8800")
 	@RequestMapping(value = "/getCar/{id}", method = RequestMethod.GET, headers = "Accept=application/json")  
 	 public Car getCarById(@PathVariable int id) {  

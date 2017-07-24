@@ -20,4 +20,13 @@ public class ReusableDaos {
 		return result;
 	}
 	
-}
+	public <T> List<T> getPendingActivities(Class<T> cls, Session s, String joinPart, String wereClause, String className){
+		List<T> result = s.createQuery("select distinct "+className+" from "+cls.getName()+" "+className+" "+joinPart+
+				" where "+ wereClause).list();
+		return result;
+	}
+	public <T> List<T> getCarsWithSubClass(Class<T> cls, Session s, String joinPart, String className){
+		List<T> result = s.createQuery("Select distinct "+className+" from "+cls.getName()+" "+className+" "+joinPart).list();
+		return result;
+	}
+}	

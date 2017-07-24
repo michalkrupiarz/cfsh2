@@ -18,10 +18,15 @@ import javassist.bytecode.stackmap.TypeData.ClassName;
 public class CreateAndPopulateDB {
 	static Connection conn;
 	
-	public CreateAndPopulateDB() throws Exception {
-		Class.forName("org.hsqldb.jdbc.JDBCDriver");
-		conn = DriverManager.getConnection("jdbc:hsqldb:C:/hsqldb-2.3.4/baza5","SA","");
+	public  CreateAndPopulateDB() throws ClassNotFoundException, SQLException {
+		Class.forName("org.postgresql.Driver");
+		conn=DriverManager.getConnection("jdbc:postgresql://localhost:5432/carFleet","postgres", "3edcFvgy7");
 	}
+	
+//	public CreateAndPopulateDB() throws Exception {
+//		Class.forName("org.hsqldb.jdbc.JDBCDriver");
+//		conn = DriverManager.getConnection("jdbc:hsqldb:C:/hsqldb-2.3.4/baza5","SA","");
+//	}
 	public void shutdown() throws SQLException {
 
         Statement st = conn.createStatement();

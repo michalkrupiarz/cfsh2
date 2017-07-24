@@ -22,11 +22,28 @@ public class CarService {
 	}
 	
 	@Transactional
+	public List<Car> getAllCarsWithPendingRepairs(){
+		List<Car> lC = carDao.getAllCarsWithPendingRepairs();
+		return lC;
+	}
+	
+	@Transactional
 	public List<Car> getAllCarsWithRepairs(){
 		List<Car> lC = carDao.getAllCarsWithRepairs();
 		return lC;
 	}
 	
+	@Transactional
+	public List<Car> getAllCarsWithPendingTires(){
+		List<Car> lC = carDao.getAllCarsWithPendingTires();
+		return lC;
+	}
+	
+	@Transactional
+	public List<Car> getAllCarsWithTires(){
+		List<Car> lC = carDao.getAllCarsWithTires();
+		return lC;
+	}
 	@Transactional
 	public Car getCar(int id) {
 		return carDao.getCar(id);
