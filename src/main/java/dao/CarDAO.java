@@ -53,7 +53,7 @@ public class CarDAO {
 	 String name = "car";
 	 String joinPart =  "join fetch car.repairs r "+
 	    				"join  fetch r.status s ";
-	 String wereClause = "s.id = 2";
+	 String wereClause = "where s.id = 2";
 	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
 	 carList = setAllSubList(carList); 
 	 return carList;
@@ -77,7 +77,7 @@ public class CarDAO {
 	 String name = "car";
 	 String joinPart =  "join fetch car.tires t "+
 	    				"join  fetch t.status s ";
-	 String wereClause = "s.id = 2";
+	 String wereClause = "where s.id = 2";
 	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
 	 carList = setAllSubList(carList); 
 	 return carList;
@@ -175,9 +175,9 @@ public List<Car> getAllCarsLendsFree() {
 	 ReusableDaos rDao = new ReusableDaos();
 	 Car c = new Car();
 	 String name = "car";
-	 String joinPart =  "join fetch car.lends l "+
-	    				"join  fetch l.status s ";
-	 String wereClause = "s.id != 2";
+	 String joinPart =  "left join car.lends l "
+	 		+ "left join l.status s ";
+	 String wereClause = "where s.id!=2 or s.id is null";
 	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
 	 carList = setAllSubList(carList); 
 	 return carList;	
@@ -190,7 +190,7 @@ public List<Car> getAllCarsLendsTaken() {
 	 String name = "car";
 	 String joinPart =  "join fetch car.lends l "+
 	    				"join  fetch l.status s ";
-	 String wereClause = "s.id = 2";
+	 String wereClause = "where s.id = 2";
 	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
 	 carList = setAllSubList(carList); 
 	 return carList;	

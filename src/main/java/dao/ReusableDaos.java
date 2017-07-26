@@ -22,7 +22,7 @@ public class ReusableDaos {
 	
 	public <T> List<T> getPendingActivities(Class<T> cls, Session s, String joinPart, String wereClause, String className){
 		List<T> result = s.createQuery("select distinct "+className+" from "+cls.getName()+" "+className+" "+joinPart+
-				" where "+ wereClause).list();
+				 wereClause).list();
 		return result;
 	}
 	public <T> List<T> getCarsWithSubClass(Class<T> cls, Session s, String joinPart, String className){
