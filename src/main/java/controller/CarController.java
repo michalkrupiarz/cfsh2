@@ -58,7 +58,7 @@ public class CarController {
 	
 	@CrossOrigin(origins = "http://localhost:8800")
 	@RequestMapping(value = "/getCar/{id}", method = RequestMethod.GET, headers = "Accept=application/json")  
-	 public Car getCarById(@PathVariable int id) {  
+	 public Car getCarById(@PathVariable("id") int id) {  
 	  return carService.getCar(id);  
 	 }  
 	@CrossOrigin(origins = "http://localhost:8800")
@@ -77,6 +77,10 @@ public class CarController {
 	 public void deleteCar(@PathVariable("id") int id) {  
 	  carService.deleteCar(id);    
 	 }   
-
+	@CrossOrigin(origins = "http://loclahost:8800")
+	@RequestMapping(value = "/sortCarsBy/{value}", method = RequestMethod.GET,  headers = "Accept=application/json")
+	public List<Car> getSortedCarsByValue(@PathVariable("value") String value){
+		return carService.getFilteredCarsByValue(value);
+	}
 	
 }

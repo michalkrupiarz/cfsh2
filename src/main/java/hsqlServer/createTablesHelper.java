@@ -24,7 +24,7 @@ public class createTablesHelper {
 				+ "carId INTEGER, statusId INTEGER, foreign key(carId) references cars(id), "
 				+ "foreign key(statusId) references status(id))");
 		tables.add("INSERT INTO calendar(dateStart,dateEnd,carId,statusId)"
-				+ " VALUES('2017-01-10','2017-01-12',1,1)");
+				+ " VALUES('2017-01-10','2017-01-12',1,2)");
 		return tables;
 	}
 	
@@ -34,7 +34,7 @@ public class createTablesHelper {
 				+ "person VARCHAR(2000), statusId INTEGER, foreign key (carId) references cars(id)"
 				+ ",foreign key(statusId) references status(id))");
 		tables.add("Insert into lends (lendStart,lendEnd,carId,person,statusId) "
-				+ "values('2017-01-01 08:00:00','2017-02-02 16:00:00',1,'Marcelus Wallace',1)");
+				+ "values('2017-01-01 08:00:00','2017-02-02 16:00:00',1,'Marcelus Wallace',2)");
 		return tables;
 	}
 	public static List<String> createAndPopulateRepairsTable(){
@@ -67,7 +67,7 @@ public class createTablesHelper {
 				+ "foreign key (carId) references cars(id)"
 				+ ",foreign key(statusId) references status(id))");
 		tables.add("Insert into insurances (dateStart,dateEnd,note,cost,insCompany,payDate,carId,statusId) "
-				+ "values('2017-02-02','2018-02-01','ubezpieczenie jeden','1200.21','PZU SA','2017-02-03',1,1)");
+				+ "values('2017-02-02','2018-02-01','ubezpieczenie jeden','1200.21','PZU SA','2017-02-03',1,2)");
 		return tables;
 	}
 	public static List<String> createAndPopulateTiresTable(){
@@ -76,7 +76,7 @@ public class createTablesHelper {
 				+ ", carId INTEGER, statusId INTEGER,foreign key (carId) references cars(id)"
 				+ ",foreign key(statusId) references status(id))");
 		tables.add("Insert into tires (type,changeDate,carId,statusId) "
-				+ "values ('zimowe','2017-09-01',1,1)");
+				+ "values ('zimowe','2017-09-01',1,2)");
 		return tables;
 	}
 	public static List<String> createAndPopulateDocumentTable(){
@@ -85,7 +85,7 @@ public class createTablesHelper {
 				+ "carId Integer, statusId INTEGER,foreign key(carId) references cars(id)"
 				+ ",foreign key(statusId) references status(id))");
 		tables.add("Insert into documents (type, expirationDate,carId,statusId) "
-				+ "values ('wymiana dowod','2022-05-12',2,1)");
+				+ "values ('wymiana dowod','2022-05-12',2,2)");
 		return tables;
 	}
 	public static List <String> createAndPopulateCheckoutTable(){
@@ -95,7 +95,7 @@ public class createTablesHelper {
 				+ "foreign key (carId) references cars(id)"
 				+ ",foreign key(statusId) references status(id))");
 		tables.add("Insert into checkouts(dateFrom,dateTo,note,cost,carId,statusId)"
-				+ " values ('2017-07-01','2018-06-30','wykonano, wszystko ok','100.00',3,1)");
+				+ " values ('2017-07-01','2018-06-30','wykonano, wszystko ok','100.00',3,2)");
 		return tables;
 	}
 	

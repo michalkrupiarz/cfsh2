@@ -53,7 +53,7 @@ public class CarDAO {
 	 String name = "car";
 	 String joinPart =  "join fetch car.repairs r "+
 	    				"join  fetch r.status s ";
-	 String wereClause = "s.id = 1";
+	 String wereClause = "s.id = 2";
 	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
 	 carList = setAllSubList(carList); 
 	 return carList;
@@ -66,8 +66,6 @@ public class CarDAO {
 	 String name = "car";
 	 String joinPart = "join fetch car.repairs";
 	 List<Car> carList = (List<Car>) rDao.getCarsWithSubClass(c.getClass(), s, joinPart, name);
-//	 List<Car> carList = s.createQuery("select distinct car from Car car "
-//	 		+ "join fetch car.repairs").list();
 	 carList = setAllSubList(carList);
 	 return carList;
  }
@@ -79,7 +77,7 @@ public class CarDAO {
 	 String name = "car";
 	 String joinPart =  "join fetch car.tires t "+
 	    				"join  fetch t.status s ";
-	 String wereClause = "s.id = 1";
+	 String wereClause = "s.id = 2";
 	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
 	 carList = setAllSubList(carList); 
 	 return carList;
@@ -92,8 +90,6 @@ public class CarDAO {
 	 String name = "car";
 	 String joinPart = "join fetch car.tires";
 	 List<Car> carList = (List<Car>) rDao.getCarsWithSubClass(c.getClass(), s, joinPart, name);
-//	 List<Car> carList = s.createQuery("select distinct car from Car car "
-//	 		+ "join fetch car.repairs").list();
 	 carList = setAllSubList(carList);
 	 return carList;
  }
@@ -126,6 +122,7 @@ public class CarDAO {
    session.delete(p);  
   }  
  }
+  
  private List<Car> setAllSubList(List<Car> carList) {
 	 for (Car c : carList){
 		 System.out.println(c.getRepairs());
@@ -161,4 +158,43 @@ public class CarDAO {
 	 }
 	return carList;
  	}
+
+public List<Car> getAllCarsWithPendingCheckouts() {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public List<Car> getAllCarsWithPendingInsurances() {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public List<Car> getAllCarsLendsFree() {
+	
+	 Session s = this.sessionFactory.getCurrentSession();
+	 ReusableDaos rDao = new ReusableDaos();
+	 Car c = new Car();
+	 String name = "car";
+	 String joinPart =  "join fetch car.lends l "+
+	    				"join  fetch l.status s ";
+	 String wereClause = "s.id != 2";
+	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
+	 carList = setAllSubList(carList); 
+	 return carList;	
+}
+
+public List<Car> getAllCarsLendsTaken() {
+	Session s = this.sessionFactory.getCurrentSession();
+	 ReusableDaos rDao = new ReusableDaos();
+	 Car c = new Car();
+	 String name = "car";
+	 String joinPart =  "join fetch car.lends l "+
+	    				"join  fetch l.status s ";
+	 String wereClause = "s.id = 2";
+	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
+	 carList = setAllSubList(carList); 
+	 return carList;	
+}
+
+
  }

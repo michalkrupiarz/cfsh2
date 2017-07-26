@@ -62,5 +62,29 @@ public class CarService {
 	public void deleteCar(int id) {
 		carDao.deleteCar(id);		
 	}
+
+	public List<Car> getFilteredCarsByValue(String value) {
+		String repairs = "repairs";
+		String checkouts = "checkouts";
+		String insurances = "insurances";
+		String tires = "tires";
+		String lendsTaken = "taken";
+		String lendsFree = "free";
+		
+		if (value.equals(repairs)) {
+			return carDao.getAllCarsWithPendingRepairs();
+		} else if (value.equals(checkouts)) {
+			return carDao.getAllCarsWithPendingCheckouts();
+		} else if (value.equals(insurances)) {
+			return carDao.getAllCarsWithPendingInsurances();
+		} else if (value.equals(tires)) {
+			return carDao.getAllCarsWithPendingTires();
+		} else if (value.equals(lendsFree)) {
+			return carDao.getAllCarsLendsFree();
+		} else if (value.equals(lendsTaken)) {
+			return carDao.getAllCarsLendsTaken();
+		}
+		return null;
+	}
 	
 }
