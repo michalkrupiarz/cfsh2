@@ -160,13 +160,29 @@ public class CarDAO {
  	}
 
 public List<Car> getAllCarsWithPendingCheckouts() {
-	// TODO Auto-generated method stub
-	return null;
+	Session s = this.sessionFactory.getCurrentSession();
+	 ReusableDaos rDao = new ReusableDaos();
+	 Car c = new Car();
+	 String name = "car";
+	 String joinPart =  "join fetch car.check c "+
+	    				"join  fetch c.status s ";
+	 String wereClause = "where s.id = 2";
+	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
+	 carList = setAllSubList(carList); 
+	return carList;
 }
 
 public List<Car> getAllCarsWithPendingInsurances() {
-	// TODO Auto-generated method stub
-	return null;
+	Session s = this.sessionFactory.getCurrentSession();
+	 ReusableDaos rDao = new ReusableDaos();
+	 Car c = new Car();
+	 String name = "car";
+	 String joinPart =  "join fetch car.insurances i "+
+	    				"join  fetch i.status s ";
+	 String wereClause = "where s.id = 2";
+	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
+	 carList = setAllSubList(carList); 
+	return carList;
 }
 
 public List<Car> getAllCarsLendsFree() {
