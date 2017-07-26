@@ -38,7 +38,8 @@ public class CarDAO {
   Session session = this.sessionFactory.getCurrentSession();  
   ReusableDaos rDao = new ReusableDaos();
   Car c = new Car();
-  List<Car> carList = (List<Car>) rDao.getAll(c.getClass(), session);
+  //List<Car> carList = (List<Car>) rDao.getAll(c.getClass(), session);
+  List<Car> carList = session.createQuery("from Car c order by c.id").list();
   carList = setAllSubList(carList);
   return carList;  
  }  
