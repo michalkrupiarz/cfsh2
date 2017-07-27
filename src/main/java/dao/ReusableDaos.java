@@ -20,6 +20,11 @@ public class ReusableDaos {
 		return result;
 	}
 	
+	public <T> List<T> getAllWithOrderBy(Class<T> cls, Session s, String orderByClause){
+		List <T> result = s.createQuery("from "+cls.getName()+" "+orderByClause).list();
+		return result;
+	}
+	
 	public <T> List<T> getPendingActivities(Class<T> cls, Session s, String joinPart, String wereClause, String className){
 		List<T> result = s.createQuery("select distinct "+className+" from "+cls.getName()+" "+className+" "+joinPart+
 				 wereClause).list();
