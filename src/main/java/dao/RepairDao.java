@@ -26,24 +26,29 @@ public class RepairDao {
 	 @Autowired  
 	 private SessionFactory sessionFactory;  
 	 
-	 private ReusableDaos rD;
-	  
+	 private ReusableDaos rD=new ReusableDaos();
+	 
+	 private Repair r = new Repair();
 	 public void setSessionFactory(SessionFactory sf) {  
 	  this.sessionFactory = sf;  
 	 }  
 
 	 public List<Repair> getAllRepairs() {  
 		 Session session = this.sessionFactory.getCurrentSession();  
-		  ReusableDaos rDao = new ReusableDaos();
+		  
 		  Repair r = new Repair();
 		  r.setCost((float) 12);
-		  List<Repair> repairList = (List<Repair>) rDao.getAll(r.getClass(), session);
-		  for (Repair rL:repairList) {
+		  List<Repair> repairList = (List<Repair>) rD.getAllWithOrderBy(r.getClass(), session," r order by r.id");
+		  getAllSubLists(repairList);
+		  return repairList;  
+		 }
+
+	private void getAllSubLists(List<Repair> repairList) {
+		for (Repair rL:repairList) {
 			  System.out.println("this is car from repair "+rL.getCar());
 			  System.out.println("this is repair status "+rL.getStatus());
 		  }
-		  return repairList;  
-		 }  
+	}  
 		 	 
 	 public Repair getRepair(int id) {  
 		  Session session = this.sessionFactory.getCurrentSession();  

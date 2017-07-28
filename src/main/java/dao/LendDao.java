@@ -15,6 +15,8 @@ import bean.carLend;
 public class LendDao {
 	@Autowired
 	private SessionFactory sessionFactory;
+	private ReusableDaos rDaos = new ReusableDaos();
+	private carLend cLend = new carLend();
 	
 	public void setSessionFactory (SessionFactory sf){
 		this.sessionFactory = sf;
@@ -22,13 +24,16 @@ public class LendDao {
 	
 	public List<carLend> getAllLends(){
 		Session session = this.sessionFactory.getCurrentSession();
-	
-		List<carLend> lendList = session.createQuery("from carLend").list();
+		List<carLend> lendList = (List<carLend>) rDaos.getAllWithOrderBy(cLend.getClass(), this.sessionFactory.getCurrentSession(), "cL order by cL.id");
+		getSubLists(lendList);
+		return lendList;
+	}
+
+	private void getSubLists(List<carLend> lendList) {
 		for (carLend l:lendList) {
 			System.out.println(l.getCar());
 			System.out.println(l.getStatus());
 		}
-		return lendList;
 	}
 	
 	public carLend getLend (int id){

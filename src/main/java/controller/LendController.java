@@ -23,10 +23,7 @@ public class LendController {
 	
 	@CrossOrigin(origins="http://localhost:8100")
 	@RequestMapping(value="/getAllLends",method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<carLend> getLends() throws Exception{
-		CreateAndPopulateDB capDB = new CreateAndPopulateDB();
-		CreateAndPopulateDB.checkOrCreateTable(capDB);
-		
+	public List<carLend> getLends() throws Exception{		
 		List<carLend> listLend = ls.getAllLends();
 		return listLend;
 	}

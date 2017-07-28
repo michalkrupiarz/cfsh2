@@ -17,20 +17,29 @@ public class CheckoutDao {
 	
 	 @Autowired  
 	 private SessionFactory sessionFactory;  
-	  
+	 
+	 private Checkout ch = new Checkout();
+	 
+	 private ReusableDaos rD = new ReusableDaos();
+	 
 	 public void setSessionFactory(SessionFactory sf) {  
 	  this.sessionFactory = sf;  
 	 }  
 
 	 public List<Checkout> getAllCheckouts() {  
 		  Session session = this.sessionFactory.getCurrentSession();  
-		  List<Checkout> checkoutList = session.createQuery("from Checkout").list();  
-		  for (Checkout c : checkoutList) {
+		  List<Checkout> checkoutList = (List<Checkout>) rD.getAllWithOrderBy(ch.getClass(), session, " ch order by ch.id");
+		  //List<Checkout> checkoutList = session.createQuery("from Checkout").list();  
+		  getAllSubLists(checkoutList);
+		  return checkoutList;  
+		 }
+
+	private void getAllSubLists(List<Checkout> checkoutList) {
+		for (Checkout c : checkoutList) {
 			  System.out.println(c.getCar());
 			  System.out.println(c.getStatus());
 		  }
-		  return checkoutList;  
-		 }  
+	}  
 		 	 
 	 public Checkout getCheckout(int id) {  
 		  Session session = this.sessionFactory.getCurrentSession();  
