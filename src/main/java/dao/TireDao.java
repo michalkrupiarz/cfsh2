@@ -15,6 +15,8 @@ public class TireDao {
 	
 	 @Autowired  
 	 private SessionFactory sessionFactory;  
+	 private Tire t = new Tire();
+	 private ReusableDaos rD = new ReusableDaos();
 	  
 	 public void setSessionFactory(SessionFactory sf) {  
 	  this.sessionFactory = sf;  
@@ -22,13 +24,17 @@ public class TireDao {
 
 	 public List<Tire> getAllTires() {  
 		  Session session = this.sessionFactory.getCurrentSession();  
-		  List<Tire> tiresList = session.createQuery("from Tire").list();  
-		  for (Tire t:tiresList) {
+		  List<Tire> tiresList = (List<Tire>) rD.getAllWithOrderBy(t.getClass(), session, " t order by t.id");
+		  getAllSubLists(tiresList);
+		  return tiresList;  
+		 }
+
+	private void getAllSubLists(List<Tire> tiresList) {
+		for (Tire t:tiresList) {
 			  System.out.println(t.getCar());
 			  System.out.println(t.getStatus());
 		  }
-		  return tiresList;  
-		 }  
+	}  
 		 
 	 
 	 

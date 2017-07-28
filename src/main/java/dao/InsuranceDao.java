@@ -16,20 +16,24 @@ import bean.Insurance;
 public class InsuranceDao {
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+	private ReusableDaos rD = new ReusableDaos();
+	private Insurance i = new Insurance();
 	public void setSessionFactory (SessionFactory sf){
 		this.sessionFactory = sf;
 	}
 	
 	public List<Insurance> getAllInsurances(){
 		Session session = this.sessionFactory.getCurrentSession();
-	
-		List<Insurance> insuranceList = session.createQuery("from Insurance").list();
+		List<Insurance> insuranceList = (List<Insurance>) rD.getAllWithOrderBy(i.getClass(), session, " i order by i.id");
+		getAllSubLists(insuranceList);
+		return insuranceList;
+	}
+
+	private void getAllSubLists(List<Insurance> insuranceList) {
 		for (Insurance i:insuranceList) {
 			System.out.println(i.getCar());
 			System.out.println(i.getStatus());
 		}
-		return insuranceList;
 	}
 	
 	public Insurance getInsurance (int id){

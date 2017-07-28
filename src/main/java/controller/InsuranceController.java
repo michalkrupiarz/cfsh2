@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import bean.Insurance;
+import dao.ReusableDaos;
 import bean.Insurance;
 import hsqlServer.CreateAndPopulateDB;
 import service.InsuranceService;
@@ -21,12 +22,10 @@ public class InsuranceController {
 	@Autowired
 	InsuranceService ins;
 	
+	
 	@CrossOrigin(origins="http://localhost:8100")
 	@RequestMapping(value="/getAllInsurances",method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<Insurance> getInsurances() throws Exception{
-		CreateAndPopulateDB capDB = new CreateAndPopulateDB();
-		CreateAndPopulateDB.checkOrCreateTable(capDB);
-		
+	public List<Insurance> getInsurances() throws Exception{		
 		List<Insurance> listInsurance = ins.getAllInsurances();
 		return listInsurance;
 	}
