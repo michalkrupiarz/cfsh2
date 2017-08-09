@@ -59,8 +59,9 @@ public class RepairDao {
 	 @Transactional
 	 public Repair addRepair(Repair repair) {  
 		  Session session = this.sessionFactory.getCurrentSession();
-		  repair.setId(GeneralQuerrys.maxIdFromTable("select max(repairs.id)+1 from Repair repairs",session)); 
-		  repair.setCar(repair.getCar());
+		  repair.setId(GeneralQuerrys.maxIdFromTable("select max(repairs.id) from Repair repairs",session)); 
+		  //repair.setCar(repair.getCar());
+		  session.clear();
 		  session.save(repair);  
 		 
 		  return repair;  

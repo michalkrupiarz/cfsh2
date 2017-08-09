@@ -44,8 +44,12 @@ public class LendDao {
 	
 	public carLend addLend(carLend carLend){
 		Session session = this.sessionFactory.getCurrentSession();
-		carLend.setId(GeneralQuerrys.maxIdFromTable("select max(lends.id)+1 from carLend lends",session));
-		session.merge(carLend);
+		carLend.setId(GeneralQuerrys.maxIdFromTable("select max(lends.id) from carLend lends",session));
+		System.out.println("id set "+carLend.getId());
+		session.clear();
+		session.save(carLend);
+		session.flush();
+		
 		return carLend;
 	}
 	

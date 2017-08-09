@@ -14,7 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class GeneralQuerrys {
 	
 	public static Integer maxIdFromTable(String querry, Session session){
-		Integer out = (Integer) session.createQuery(querry).uniqueResult();		
+		Integer out = (Integer) session.createQuery(querry).uniqueResult();	
+		System.out.println("out from general querrys "+out);
 		return out+1;
 	}
 }

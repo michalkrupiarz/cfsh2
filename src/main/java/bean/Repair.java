@@ -92,10 +92,10 @@ public class Repair {
 	}
 	
 	@Transactional
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "carId", updatable = false, insertable = true, nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "carId", updatable = true, insertable = true, nullable=false)
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	@JsonIgnoreProperties("repairs")
+	@JsonIgnoreProperties(value = {"repairs"},  allowSetters = true)
 	public Car getCar() {	
 		return car;
 	}
@@ -103,8 +103,8 @@ public class Repair {
 	public void setCar(Car car) {
 		this.car = car;
 	}
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="statusId",updatable=false, insertable=true,nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@JoinColumn(name="statusId",updatable=true, insertable=true,nullable=false)
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@JsonIgnoreProperties("status")
 	public Status getStatus() {

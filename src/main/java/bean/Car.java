@@ -73,10 +73,10 @@ public class Car{
 	}
 	
 	@Transactional
-	@OneToMany(targetEntity= Repair.class, fetch = FetchType.LAZY , mappedBy="car")
-	@Cascade({org.hibernate.annotations.CascadeType.ALL}) 
+	@OneToMany(targetEntity= Repair.class, fetch = FetchType.LAZY , mappedBy="car",cascade = CascadeType.REMOVE)
+	//@Cascade({org.hibernate.annotations.CascadeType.ALL}) 
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	@JsonIgnoreProperties({"car"})
+	@JsonIgnoreProperties(value = {"car"}, allowSetters = true)
 	public List<Repair> getRepairs() {
 		return repairs;
 	}
@@ -84,9 +84,9 @@ public class Car{
 		this.repairs= repairs;
 	}
 	
-	@OneToMany(targetEntity = carLend.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.ALL)
+	@OneToMany(targetEntity = carLend.class, fetch = FetchType.LAZY, mappedBy = "car",cascade = CascadeType.REMOVE)
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	@JsonIgnoreProperties("car")
+	@JsonIgnoreProperties(value = {"car"}, allowSetters = true)
 	public List<carLend> getLends() {
 		return lends;
 	}
