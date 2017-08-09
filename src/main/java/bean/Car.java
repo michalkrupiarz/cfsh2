@@ -17,8 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Check;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,6 +31,7 @@ import com.fasterxml.jackson.databind.*;
 
 
 @Entity
+@Transactional
 @Table(name="cars")
 
 public class Car{
@@ -69,7 +72,9 @@ public class Car{
 		this.carRegistration = carRegistration;
 	}
 	
-	@OneToMany(targetEntity= Repair.class, fetch = FetchType.LAZY , mappedBy="car",cascade=CascadeType.ALL)
+	@Transactional
+	@OneToMany(targetEntity= Repair.class, fetch = FetchType.LAZY , mappedBy="car")
+	@Cascade({org.hibernate.annotations.CascadeType.ALL}) 
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@JsonIgnoreProperties({"car"})
 	public List<Repair> getRepairs() {
@@ -128,6 +133,10 @@ public class Car{
 	}
 	public void setCheck(List<Checkout> check) {
 		this.check = check;
+	}
+	
+	public void addRepair(Repair rep) {
+		rep.setCar(this);
 	}
 	
 	

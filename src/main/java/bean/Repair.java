@@ -1,4 +1,4 @@
-	package bean;
+package bean;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -27,6 +29,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.*;
 
 @Entity
+
 @Table(name = "repairs")
 public class Repair {
 
@@ -87,9 +90,10 @@ public class Repair {
 	public void setCost(Float cost) {
 		this.cost = cost;
 	}
-
-	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
+	
+	@Transactional
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "carId", updatable = false, insertable = true, nullable=false)
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@JsonIgnoreProperties("repairs")
 	public Car getCar() {	
@@ -100,7 +104,7 @@ public class Repair {
 		this.car = car;
 	}
 	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="statusId",updatable=false, insertable=false,nullable=false)
+	@JoinColumn(name="statusId",updatable=false, insertable=true,nullable=false)
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@JsonIgnoreProperties("status")
 	public Status getStatus() {

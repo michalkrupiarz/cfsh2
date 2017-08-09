@@ -42,6 +42,7 @@ public class CarDAO {
   //List<Car> carList = session.createQuery("from Car c order by c.id").list();
   List<Car> carList= (List<Car>) rDao.getAllWithOrderBy(c.getClass(), session, " c order by c.id");
   carList = setAllSubList(carList);
+  
   return carList;  
  }  
   /**

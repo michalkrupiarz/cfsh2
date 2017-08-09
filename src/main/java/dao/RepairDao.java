@@ -11,6 +11,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -55,12 +56,13 @@ public class RepairDao {
 		  Repair repair = (Repair) session.get(Repair.class, new Integer(id)); 
 		  return repair;  
 		 }  
-		  
+	 @Transactional
 	 public Repair addRepair(Repair repair) {  
 		  Session session = this.sessionFactory.getCurrentSession();
-		  repair.setId(GeneralQuerrys.maxIdFromTable("select max(repairs.id) from Repair repairs",session)); 
-		  System.out.println(repair.toString());
-		  session.merge(repair);  
+		  repair.setId(GeneralQuerrys.maxIdFromTable("select max(repairs.id)+1 from Repair repairs",session)); 
+		  repair.setCar(repair.getCar());
+		  session.save(repair);  
+		 
 		  return repair;  
 		 }  
 		  

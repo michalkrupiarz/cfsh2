@@ -86,7 +86,7 @@ public void setCost(Float cost) {
 }
 
 @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-@JoinColumn(name = "statusId", updatable = false, insertable = false, nullable=false		)
+@JoinColumn(name = "carId", updatable = true, insertable = true, nullable=false		)
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIgnoreProperties("check")
 public Car getCar() {
@@ -98,7 +98,7 @@ public void setCar(Car car) {
 }
 
 @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-@JoinColumn(name = "statusId", updatable = false, insertable = false, nullable=false		)
+@JoinColumn(name = "statusId", updatable = true, insertable = true, nullable=false		)
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIgnoreProperties("status")
 public Status getStatus() {

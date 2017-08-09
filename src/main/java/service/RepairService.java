@@ -10,7 +10,7 @@ import bean.Repair;
 import dao.RepairDao;
 
 @Service("repairService")
-@Transactional
+
 public class RepairService {
 	@Autowired
 	RepairDao repairDao;
@@ -25,6 +25,7 @@ public class RepairService {
 	}
 	@Transactional
 	public void addRepair(Repair repair) {
+		System.out.println("rep service "+ repair);
 		repairDao.addRepair(repair);
 		
 	}

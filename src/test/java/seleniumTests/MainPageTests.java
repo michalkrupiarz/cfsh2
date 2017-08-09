@@ -70,8 +70,11 @@ public class MainPageTests {
   @Test
   public void openCarDetails() throws InterruptedException {
 	  MainPage mP = new MainPage(driver);
-	  mP.openMainPage().openCarDetails("Ford");
-	  Assert.assertEquals(mP.getCarNameFromDetails("Ford"), "Ford");
+	  mP.openMainPage();
+	  for (String car : carNames) {
+	   mP.openCarDetails(car);
+	  Assert.assertEquals(mP.getCarNameFromDetails(car), car);
+	  }
   }
   
   public boolean isItemOnTheList(String item, List<String> List) {

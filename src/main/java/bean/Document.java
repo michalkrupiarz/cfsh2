@@ -61,7 +61,7 @@ public class Document {
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-	@JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
+	@JoinColumn(name = "carId", updatable = true, insertable = true, nullable=false		)
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@JsonIgnoreProperties("doc")
 	public Car getCar() {
@@ -71,7 +71,7 @@ public class Document {
 		this.car = car;
 	}
 	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="statusId",updatable=false, insertable=false,nullable=false)
+	@JoinColumn(name="statusId",updatable=true, insertable=true,nullable=false)
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@JsonIgnoreProperties("status")
 	public Status getStatus() {

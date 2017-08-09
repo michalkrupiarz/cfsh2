@@ -34,6 +34,7 @@ public class RepairController {
 	@CrossOrigin(origins = "http://localhost:8800")
 	 @RequestMapping(value = "/addRepair", method = RequestMethod.POST, headers = "Accept=application/json")  
 	 public void addRepair(@RequestBody Repair repair) {  
+		System.out.println("addRepair "+repair);
 	  repairService.addRepair(repair);  
 	    
 	 }  
