@@ -41,13 +41,13 @@ public class carLend {
 	String person;
 	
 	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JoinColumn(name = "carId", updatable = true, insertable =true, nullable=false		)
+    @JoinColumn(name = "carId", updatable = false, insertable =false, nullable=false		)
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@JsonIgnoreProperties("car")
 	private Car car;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="statusId",updatable=true, insertable=true,nullable=false)
+	@JoinColumn(name="statusId",updatable=false, insertable=false,nullable=false)
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@JsonIgnoreProperties("status")
 	private Status status;
