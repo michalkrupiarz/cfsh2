@@ -85,10 +85,10 @@ public void setCost(Float cost) {
 	this.cost = cost;
 }
 
-@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-@JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
+@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.REMOVE)
+@JoinColumn(name = "carId", updatable = true, insertable = true, nullable=false		)
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@JsonIgnoreProperties("check")
+@JsonIgnoreProperties(value = {"check"}, allowSetters = true)
 public Car getCar() {
 	return car;
 }
@@ -97,10 +97,10 @@ public void setCar(Car car) {
 	this.car = car;
 }
 
-@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-@JoinColumn(name = "statusId", updatable = false, insertable = false, nullable=false		)
+@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.REMOVE)
+@JoinColumn(name = "statusId", updatable = true, insertable = true, nullable=false		)
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@JsonIgnoreProperties("status")
+@JsonIgnoreProperties(value = {"status"}, allowSetters = true)
 public Status getStatus() {
 	return status;
 }

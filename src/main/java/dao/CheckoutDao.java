@@ -50,6 +50,7 @@ public class CheckoutDao {
 	 public Checkout addCheckout(Checkout checkout) {  
 		  Session session = this.sessionFactory.getCurrentSession();
 		  checkout.setId(GeneralQuerrys.maxIdFromTable("select max(checkouts.id) from Checkout checkouts",session)); 
+		  System.out.println("this is set id "+checkout.getId());
 		  System.out.println(checkout.toString());
 		  session.merge(checkout);  
 		  return checkout;  

@@ -127,7 +127,7 @@ public class Car{
 	}
 	@OneToMany(targetEntity = Checkout.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.ALL)
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
-	@JsonIgnoreProperties("car")
+	@JsonIgnoreProperties(value = {"car"}, allowSetters = true)
 	public List<Checkout> getCheck() {
 		return check;
 	}
