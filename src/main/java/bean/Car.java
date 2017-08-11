@@ -94,9 +94,9 @@ public class Car{
 		this.lends = lends;
 	}
 	
-	@OneToMany(targetEntity = Insurance.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.ALL)
+	@OneToMany(targetEntity = Insurance.class, fetch = FetchType.LAZY, mappedBy = "car",cascade=CascadeType.REMOVE)
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")	
-	@JsonIgnoreProperties("car")
+	@JsonIgnoreProperties(value = {"car"}, allowSetters = true)
 	public List<Insurance> getInsurances() {
 		return insurances;
 	}

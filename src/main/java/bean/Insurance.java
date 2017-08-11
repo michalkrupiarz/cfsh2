@@ -78,10 +78,10 @@ public class Insurance {
 	public void setInsCompany(String insCompany) {
 		this.insCompany = insCompany;
 	}
-	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JoinColumn(name = "carId", updatable = false, insertable = false, nullable=false		)
+	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.REMOVE)
+    @JoinColumn(name = "carId", updatable = true, insertable = true, nullable=false		)
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	@JsonIgnoreProperties("insurances")
+	@JsonIgnoreProperties(value = {"insurances"}, allowSetters = true)
 	public Car getCar() {
 		return car;
 	}
@@ -96,8 +96,8 @@ public class Insurance {
 	public void setPayDate(Calendar payDate) {
 		this.payDate = payDate;
 	}
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="statusId",updatable=false, insertable=false,nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
+	@JoinColumn(name="statusId",updatable=true, insertable=true,nullable=false)
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@JsonIgnoreProperties("status")
 	public Status getStatus() {

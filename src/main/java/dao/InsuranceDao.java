@@ -44,7 +44,7 @@ public class InsuranceDao {
 	
 	public Insurance addInsurance(Insurance Insurance){
 		Session session = this.sessionFactory.getCurrentSession();
-		Insurance.setId(GeneralQuerrys.maxIdFromTable("select max(insurances.id, session) from Insurance insurances",session));
+		Insurance.setId(GeneralQuerrys.maxIdFromTable("select max(insurances.id) from Insurance insurances",session));
 		session.merge(Insurance);
 		return Insurance;
 	}
