@@ -48,6 +48,16 @@ public class LendController {
 	 @RequestMapping(value = "/deletecarLend/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")  
 	 public void deletecarLend(@PathVariable("id") int id) {  
 	  ls.deleteLEnd(id);    
-	 }   
+	 } 
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value= "/getFreeCarsNumber")
+	public int gerFreeCarsNumber() {
+		return ls.getFreeCarsNumber();
+	}
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value = "/getTakenCarsNumber")
+	public int getTakenCarsNumber() {
+		return ls.getTakenCarsNumber();
+	}
 
 }

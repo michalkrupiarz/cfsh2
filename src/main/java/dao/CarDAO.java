@@ -1,6 +1,7 @@
 package dao;
 
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.List;
 
@@ -38,8 +39,6 @@ public class CarDAO {
   Session session = this.sessionFactory.getCurrentSession();  
   ReusableDaos rDao = new ReusableDaos();
   Car c = new Car();
-  //List<Car> carList = (List<Car>) rDao.getAll(c.getClass(), session);
-  //List<Car> carList = session.createQuery("from Car c order by c.id").list();
   List<Car> carList= (List<Car>) rDao.getAllWithOrderBy(c.getClass(), session, " c order by c.id");
   carList = setAllSubList(carList);
   
@@ -126,7 +125,83 @@ public class CarDAO {
   }  
  }
   
- private List<Car> setAllSubList(List<Car> carList) {
+public List<Car> getAllCarsWithPendingCheckouts() {
+	Session s = this.sessionFactory.getCurrentSession();
+	 ReusableDaos rDao = new ReusableDaos();
+	 Car c = new Car();
+	 String name = "car";
+	 String joinPart =  "join fetch car.check c "+
+	    				"join  fetch c.status s ";
+	 String wereClause = "where s.id = 2";
+	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
+	 carList = setAllSubList(carList); 
+	return carList;
+}
+
+public List<Car> getAllCarsWithPendingInsurances() {
+	Session s = this.sessionFactory.getCurrentSession();
+	 ReusableDaos rDao = new ReusableDaos();
+	 Car c = new Car();
+	 String name = "car";
+	 String joinPart =  "join fetch car.insurances i "+
+	    				"join  fetch i.status s ";
+	 String wereClause = "where s.id = 2";
+	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
+	 carList = setAllSubList(carList); 
+	return carList;
+}
+
+	public List<Car> getAllCarsLendsFree(Session s) {
+	 //Session s = this.sessionFactory.getCurrentSession();
+	 ReusableDaos rDao = new ReusableDaos();
+	 Car c = new Car();
+	 String name = "car";
+	 String joinPart =  "left join car.lends l "
+	 		+ "left join l.status s ";
+	 String wereClause = "where s.id!=2 or s.id is null";
+	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
+	 carList = setAllSubList(carList); 
+	 return carList;	
+}
+
+	public List<Car> getAllCarsLendsTaken(Session s) {
+	//Session s = this.sessionFactory.getCurrentSession();
+	 ReusableDaos rDao = new ReusableDaos();
+	 Car c = new Car();
+	 String name = "car";
+	 String joinPart =  "join fetch car.lends l "+
+	    				"join  fetch l.status s ";
+	 String wereClause = "where s.id = 2";
+	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
+	 carList = setAllSubList(carList); 
+	 return carList;	
+	}
+	
+	public List<Car> getAllFreeCars(){
+		Session s = this.sessionFactory.getCurrentSession();
+		 ReusableDaos rDao = new ReusableDaos();
+		 Car c = new Car();
+		 Calendar currDate = Calendar.getInstance();
+		 String name = "car";
+		 String joinPart =  "join fetch car.lends l ";
+		 String wereClause = "where l.lendend < "+currDate;
+		 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
+		 carList = setAllSubList(carList); 
+		 return carList;	
+	}
+	public List<Car> getAllTakenCars(){
+		Session s = this.sessionFactory.getCurrentSession();
+		 ReusableDaos rDao = new ReusableDaos();
+		 Car c = new Car();
+		 Calendar currDate = Calendar.getInstance();
+		 String name = "car";
+		 String joinPart =  "join fetch car.lends l ";
+		 String wereClause = "where l.lendend > "+currDate;
+		 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
+		 carList = setAllSubList(carList); 
+		 return carList;	
+	}
+	private List<Car> setAllSubList(List<Car> carList) {
 	 for (Car c : carList){
 		 System.out.println(c.getRepairs());
 		 List<Repair> reps = c.getRepairs();	
@@ -160,60 +235,6 @@ public class CarDAO {
 		 }
 	 }
 	return carList;
- 	}
-
-public List<Car> getAllCarsWithPendingCheckouts() {
-	Session s = this.sessionFactory.getCurrentSession();
-	 ReusableDaos rDao = new ReusableDaos();
-	 Car c = new Car();
-	 String name = "car";
-	 String joinPart =  "join fetch car.check c "+
-	    				"join  fetch c.status s ";
-	 String wereClause = "where s.id = 2";
-	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
-	 carList = setAllSubList(carList); 
-	return carList;
-}
-
-public List<Car> getAllCarsWithPendingInsurances() {
-	Session s = this.sessionFactory.getCurrentSession();
-	 ReusableDaos rDao = new ReusableDaos();
-	 Car c = new Car();
-	 String name = "car";
-	 String joinPart =  "join fetch car.insurances i "+
-	    				"join  fetch i.status s ";
-	 String wereClause = "where s.id = 2";
-	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
-	 carList = setAllSubList(carList); 
-	return carList;
-}
-
-public List<Car> getAllCarsLendsFree() {
+	}
 	
-	 Session s = this.sessionFactory.getCurrentSession();
-	 ReusableDaos rDao = new ReusableDaos();
-	 Car c = new Car();
-	 String name = "car";
-	 String joinPart =  "left join car.lends l "
-	 		+ "left join l.status s ";
-	 String wereClause = "where s.id!=2 or s.id is null";
-	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
-	 carList = setAllSubList(carList); 
-	 return carList;	
 }
-
-public List<Car> getAllCarsLendsTaken() {
-	Session s = this.sessionFactory.getCurrentSession();
-	 ReusableDaos rDao = new ReusableDaos();
-	 Car c = new Car();
-	 String name = "car";
-	 String joinPart =  "join fetch car.lends l "+
-	    				"join  fetch l.status s ";
-	 String wereClause = "where s.id = 2";
-	 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
-	 carList = setAllSubList(carList); 
-	 return carList;	
-}
-
-
- }

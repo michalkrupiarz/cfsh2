@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import bean.Car;
 import bean.carLend;
+import dao.CarDAO;
 
 @Repository
 @Transactional
@@ -17,6 +19,7 @@ public class LendDao {
 	private SessionFactory sessionFactory;
 	private ReusableDaos rDaos = new ReusableDaos();
 	private carLend cLend = new carLend();
+	private CarDAO cDao = new CarDAO();
 	
 	public void setSessionFactory (SessionFactory sf){
 		this.sessionFactory = sf;
@@ -64,5 +67,14 @@ public class LendDao {
 		if (null !=l){
 			session.delete(l);
 		}
+	}
+
+	public int getFreeCarsNumber() {
+		Session session = this.sessionFactory.getCurrentSession();
+		return cDao.getAllCarsLendsFree(session).size();
+	}
+	public int getTakenCarsNumber() {
+		Session session = this.sessionFactory.getCurrentSession();
+		return cDao.getAllCarsLendsTaken(session).size();
 	}
 }

@@ -38,4 +38,14 @@ public class lendService {
 	public void deleteLEnd(int id){
 		lendDao.deleteLend(id);
 	}
+	@Transactional
+	public int getFreeCarsNumber() {
+		// TODO Auto-generated method stub
+		return lendDao.getFreeCarsNumber();
+	}
+	@Transactional
+	public int getTakenCarsNumber() {
+		// TODO Auto-generated method stub
+		return lendDao.getTakenCarsNumber();
+	}
 }
