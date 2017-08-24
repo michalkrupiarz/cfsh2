@@ -31,11 +31,18 @@ public class CheckoutService {
 	@Transactional
 	public void updateCheckout(Checkout checkout) {
 		checkoutDao.updateCheckout(checkout);
-		
+	
 	}
-
 	public void deleteCheckout(int id) {
 		checkoutDao.deleteCheckout(id);		
+	}
+	public List <Checkout> getCheckoutsUpcomingIn(int days) {
+		// TODO Auto-generated method stub
+		return checkoutDao.getCheckoutsUpcomingIn(days);
+	}
+	public List<Checkout> getPendingCheckouts() {
+		// TODO Auto-generated method stub
+		return checkoutDao.getPendingCheckouts();
 	}
 	
 }

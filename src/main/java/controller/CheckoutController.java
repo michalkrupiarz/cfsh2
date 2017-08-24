@@ -45,5 +45,15 @@ public class CheckoutController {
 	 @RequestMapping(value = "/deleteCheckout/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")  
 	 public void deleteCheckout(@PathVariable("id") int id) {  
 	  checkoutService.deleteCheckout(id);    
-	 }   
+	 } 
+	@CrossOrigin(origins = "http://localhost:8800")
+	@RequestMapping(value = "/getPendingCheckouts", method = RequestMethod.GET, headers = "Accept=application/json")  
+	 public List<Checkout> getPendingCheckouts() {  
+	  return checkoutService.getPendingCheckouts();  
+	 }  
+	@CrossOrigin(origins = "http://localhost:8800")
+	@RequestMapping(value = "/getCheckoutsUpcomingIn/{days}", method = RequestMethod.GET, headers = "Accept=application/json")  
+	 public List<Checkout> getCheckoutsUpcomingIn(@PathVariable int days) {  
+	  return checkoutService.getCheckoutsUpcomingIn(days);  
+	 }  
 }

@@ -71,10 +71,16 @@ public class LendDao {
 
 	public int getFreeCarsNumber() {
 		Session session = this.sessionFactory.getCurrentSession();
-		return cDao.getAllCarsLendsFree(session).size();
+		return cDao.getAllFreeCars(session).size();
 	}
 	public int getTakenCarsNumber() {
 		Session session = this.sessionFactory.getCurrentSession();
-		return cDao.getAllCarsLendsTaken(session).size();
+		return cDao.getAllTakenCars(session).size();
+	}
+
+	public int getCarsThatLendEndsIn(int days) {
+		// TODO Auto-generated method stub
+		Session s = this.sessionFactory.getCurrentSession();
+		return cDao.getCarsThatLendEndsIn(days,s).size();
 	}
 }

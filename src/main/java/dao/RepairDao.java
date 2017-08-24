@@ -19,11 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import bean.Car;
 import bean.Repair;
+import usefull_tools.DateAndTime;
 
 @Repository
 @Transactional
 public class RepairDao {
-	
+	 CarDAO cD = new CarDAO();
+	 DateAndTime dAT = new DateAndTime();
 	 @Autowired  
 	 private SessionFactory sessionFactory;  
 	 
@@ -33,7 +35,7 @@ public class RepairDao {
 	 public void setSessionFactory(SessionFactory sf) {  
 	  this.sessionFactory = sf;  
 	 }  
-
+	 @Transactional
 	 public List<Repair> getAllRepairs() {  
 		 Session session = this.sessionFactory.getCurrentSession();  
 		  
@@ -43,14 +45,7 @@ public class RepairDao {
 		  getAllSubLists(repairList);
 		  return repairList;  
 		 }
-
-	private void getAllSubLists(List<Repair> repairList) {
-		for (Repair rL:repairList) {
-			  System.out.println("this is car from repair "+rL.getCar());
-			  System.out.println("this is repair status "+rL.getStatus());
-		  }
-	}  
-		 	 
+	 @Transactional
 	 public Repair getRepair(int id) {  
 		  Session session = this.sessionFactory.getCurrentSession();  
 		  Repair repair = (Repair) session.get(Repair.class, new Integer(id)); 
@@ -66,12 +61,12 @@ public class RepairDao {
 		 
 		  return repair;  
 		 }  
-		  
+	 @Transactional	  
 	 public void updateRepair(Repair repair) {  
 		  Session session = this.sessionFactory.getCurrentSession();  
 		  session.update(repair);  
 		 }  
-		  
+	 @Transactional	  
 	 public void deleteRepair(int id) {  
 		 
 		  Session session = this.sessionFactory.getCurrentSession();  
@@ -81,31 +76,34 @@ public class RepairDao {
 		   session.delete(p);  
 		  }  
 		 }   
+	 @Transactional
 	 public List<Repair> getPendingRepairs() {
 		 Calendar currentDate = Calendar.getInstance();
-		 Repair rep = new Repair();
 		 Session session = this.sessionFactory.getCurrentSession();  
-		 Query q = session.createQuery("from Repair r where r.dateEnd >=:cDate");
-		 //Query q = session.createQuery("from Repair r ")
+		 Query q = session.createQuery("from Repair r join fetch r.status s where r.dateEnd >=:cDate and s.progress = :status ");
 		 q.setParameter("cDate", currentDate);
+		 q.setParameter("status", "in status");
 		 List <Repair> repairList = q.list();
+		 getAllSubLists(repairList);
 		 return repairList;  
 	 }
-	 public List<Repair> getRepairsThatAreToEndInDays(int daysToEnd){
-		 
-//		 LocalDate cDate = LocalDate.now();
-//		 int day = cDate.getDayOfMonth();
-//		 int month = 7;//cDate.getMonthValue();
-//		 Session s = this.sessionFactory.getCurrentSession();
-//		 Query q = s.createQuery("select r.dateEnd , day(r.dateEnd) , month(r.dateEnd) from Repair r where (((day(r.dateEnd)-:dTE) =:cDay) and (month(r.dateEnd)=:cMonth))");
-//		 q.setParameter("cDay", day);
-//     	 q.setParameter("cMonth", month);
-//         q.setParameter("dTE", daysToEnd);
-//		 List<Repair> repairList = q.list();
-//			 for (Repair r:repairList) {
-//				  System.out.println("this is car from repair "+r.getCar());
-//			  }
-			 
-		 return null;
+	 @Transactional
+	 public List<Repair> getRepairsThatWillEndInDays(int days){
+		 Session session = this.sessionFactory.getCurrentSession();  
+		 Calendar cDate = Calendar.getInstance();
+		 cDate.add(Calendar.DATE, days);
+		 Query q = session.createQuery("from Repair r join fetch r.status s where r.dateEnd <=:cDate and s.progress = :status ");
+		 q.setParameter("cDate", cDate);
+		 q.setParameter("status", "in status");
+		 List <Repair> repairList = q.list();
+		 getAllSubLists(repairList);
+		 return repairList;  
 	 }
+	 private void getAllSubLists(List<Repair> repairList) {
+			for (Repair rL:repairList) {
+				  System.out.println("this is car from repair "+rL.getCar());
+				  System.out.println("this is repair status "+rL.getStatus());
+			  }
+		}  
+	 
 }	

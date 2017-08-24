@@ -34,4 +34,9 @@ public class ReusableDaos {
 		List<T> result = s.createQuery("Select distinct "+className+" from "+cls.getName()+" "+className+" "+joinPart).list();
 		return result;
 	}
+	public <T> List<T> getPendingActivitiesNotDistinct(Class<T> cls, Session s, String joinPart, String wereClause, String className){
+		List<T> result = s.createQuery("select distinct "+className+" from "+cls.getName()+" "+className+" "+joinPart+
+				 wereClause).list();
+		return result;
+	}
 }	

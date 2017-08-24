@@ -1,7 +1,9 @@
 package dao;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.List;
 
@@ -15,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import dao.GeneralQuerrys;
-
+import usefull_tools.DateAndTime;
 import bean.Car;
 import bean.Checkout;
 import bean.Document;
@@ -27,7 +29,7 @@ import bean.carLend;
 @Repository 
 @Transactional
 public class CarDAO {  
-  
+ DateAndTime dAT = new DateAndTime();
  @Autowired  
  private SessionFactory sessionFactory;  
  
@@ -151,8 +153,8 @@ public List<Car> getAllCarsWithPendingInsurances() {
 	return carList;
 }
 
-	public List<Car> getAllCarsLendsFree(Session s) {
-	 //Session s = this.sessionFactory.getCurrentSession();
+	public List<Car> getAllCarsLendsFree() {
+	 Session s = this.sessionFactory.getCurrentSession();
 	 ReusableDaos rDao = new ReusableDaos();
 	 Car c = new Car();
 	 String name = "car";
@@ -164,8 +166,8 @@ public List<Car> getAllCarsWithPendingInsurances() {
 	 return carList;	
 }
 
-	public List<Car> getAllCarsLendsTaken(Session s) {
-	//Session s = this.sessionFactory.getCurrentSession();
+	public List<Car> getAllCarsLendsTaken() {
+	 Session s = this.sessionFactory.getCurrentSession();
 	 ReusableDaos rDao = new ReusableDaos();
 	 Car c = new Car();
 	 String name = "car";
@@ -177,30 +179,44 @@ public List<Car> getAllCarsWithPendingInsurances() {
 	 return carList;	
 	}
 	
-	public List<Car> getAllFreeCars(){
-		Session s = this.sessionFactory.getCurrentSession();
-		 ReusableDaos rDao = new ReusableDaos();
-		 Car c = new Car();
-		 Calendar currDate = Calendar.getInstance();
-		 String name = "car";
-		 String joinPart =  "join fetch car.lends l ";
-		 String wereClause = "where l.lendend < "+currDate;
-		 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
-		 carList = setAllSubList(carList); 
+	public List<Car> getAllFreeCars(Session s){
+		Query q = s.createQuery("from Car c join c.lends l "
+		 		+ "join l.status s where s.progress != :status");
+		 q.setParameter("status","in status");
+		 List<Car> carList = q.list();
+		 //carList = setAllSubList(carList); 
 		 return carList;	
 	}
-	public List<Car> getAllTakenCars(){
-		Session s = this.sessionFactory.getCurrentSession();
-		 ReusableDaos rDao = new ReusableDaos();
-		 Car c = new Car();
-		 Calendar currDate = Calendar.getInstance();
-		 String name = "car";
-		 String joinPart =  "join fetch car.lends l ";
-		 String wereClause = "where l.lendend > "+currDate;
-		 List<Car> carList = (List<Car>) rDao.getPendingActivities(c.getClass(), s, joinPart, wereClause,name);
-		 carList = setAllSubList(carList); 
+	public List<Car> getAllTakenCars(Session s){
+		 Query q = s.createQuery("select distinct Car from Car c join c.lends l "
+		 		+ "join l.status s where s.progress = :status");
+		 q.setParameter("status","in status");
+		 List<Car> carList = q.list();
+		 //carList = setAllSubList(carList); 
 		 return carList;	
 	}
+	public List<Car> getAllCarsThatRepairEndsInLessThen(Session s,int days){
+		ReusableDaos rDao = new ReusableDaos();
+		Car c= new Car();
+		String name = "car";
+		String joinPart = "join fetch car.repairs r ";
+		String whereClause = "where r.dateEnd < '"+dAT.getDateFurther(days)+"'";
+		List<Car> carList = (List<Car>) rDao.getPendingActivitiesNotDistinct(c.getClass(), s, joinPart, whereClause,name);
+		carList = setAllSubList(carList); 
+		return carList;	
+	}
+	
+	public List<Car> getCarsThatLendEndsIn(int days, Session s) {
+		ReusableDaos rDao = new ReusableDaos();
+		Car c= new Car();
+		String name = "car";
+		String joinPart = "join fetch car.repairs r ";
+		String whereClause = "where r.dateEnd < '"+dAT.getDateFurther(days)+"'";
+		List<Car> carList = (List<Car>) rDao.getPendingActivitiesNotDistinct(c.getClass(), s, joinPart, whereClause,name);
+		carList = setAllSubList(carList); 
+		return carList;	
+	}
+	
 	private List<Car> setAllSubList(List<Car> carList) {
 	 for (Car c : carList){
 		 System.out.println(c.getRepairs());
@@ -236,5 +252,7 @@ public List<Car> getAllCarsWithPendingInsurances() {
 	 }
 	return carList;
 	}
+
+	
 	
 }

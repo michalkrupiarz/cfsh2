@@ -48,4 +48,8 @@ public class lendService {
 		// TODO Auto-generated method stub
 		return lendDao.getTakenCarsNumber();
 	}
+	public int getCarsThatLendEndsIn(int days) {
+		// TODO Auto-generated method stub
+		return lendDao.getCarsThatLendEndsIn(days);
+	}
 }

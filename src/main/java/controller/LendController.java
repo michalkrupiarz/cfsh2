@@ -59,5 +59,10 @@ public class LendController {
 	public int getTakenCarsNumber() {
 		return ls.getTakenCarsNumber();
 	}
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value= "/getCarsThatLendEndsIn/{days}")
+	public int gerFreeCarsNumber(@PathVariable("days") int days) {
+		return ls.getCarsThatLendEndsIn(days);
+	}
 
 }
