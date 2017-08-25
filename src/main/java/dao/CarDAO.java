@@ -188,7 +188,7 @@ public List<Car> getAllCarsWithPendingInsurances() {
 		 return carList;	
 	}
 	public List<Car> getAllTakenCars(Session s){
-		 Query q = s.createQuery("select distinct Car from Car c join c.lends l "
+		 Query q = s.createQuery("from Car c join c.lends l "
 		 		+ "join l.status s where s.progress = :status");
 		 q.setParameter("status","in status");
 		 List<Car> carList = q.list();
