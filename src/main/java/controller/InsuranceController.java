@@ -51,5 +51,9 @@ public class InsuranceController {
 	 public void deleteInsurance(@PathVariable("id") int id) {  
 	  ins.deleteLEnd(id);;    
 	 }   
-
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value = "/insurancesEndingIn/{days}",method = RequestMethod.GET,headers = "Accept=application/json")
+	public List<Insurance> getInsurancesEndingIn(@PathVariable int days){
+		return ins.getInsurancesEndingIn(days);
+	}
 }

@@ -38,4 +38,7 @@ public class InsuranceService {
 	public void deleteLEnd(int id){
 		insDao.deleteInsurance(id);
 	}
+	public List<Insurance> getInsurancesEndingIn(int days) { 
+		return insDao.getInsurancesEndingIn(days);
+	}
 }

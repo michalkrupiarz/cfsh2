@@ -1,7 +1,9 @@
 package dao;
 
+import java.util.Calendar;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,6 @@ public class TireDao {
 	}  
 		 
 	 
-	 
 		 public Tire getTires(int id) {  
 		  Session session = this.sessionFactory.getCurrentSession();  
 		  Tire tires = (Tire) session.get(Tire.class, new Integer(id)); 
@@ -64,5 +65,17 @@ public class TireDao {
 		  if (null != p) {  
 		   session.delete(p);  
 		  }  
-		 }   
+		 }
+
+		public List<Tire> getTiresToChangeIn(int days) {
+			Session s = this.sessionFactory.getCurrentSession();
+			Calendar cDate = Calendar.getInstance();
+			cDate.add(Calendar.DATE, days);
+			Query q = s.createQuery("from Tire t join fetch t.status s where t.changeDate<=:cDate and s.progress=:status");
+			q.setParameter("status","in status");
+			q.setParameter("cDate", cDate);
+			List<Tire> tS = q.list();
+			getAllSubLists(tS);
+			return tS;
+		}   
 }	

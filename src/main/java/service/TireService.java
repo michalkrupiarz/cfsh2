@@ -38,4 +38,7 @@ public class TireService {
 	public void deleteLEnd(int id){
 		tiresDao.deleteTires(id);
 	}
+	public List<Tire> getTiresToChangeIn(int days) {
+		return tiresDao.getTiresToChangeIn(days);
+	}
 }

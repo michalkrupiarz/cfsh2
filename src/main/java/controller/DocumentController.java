@@ -48,5 +48,10 @@ public class DocumentController {
 	 @RequestMapping(value = "/deleteDocument/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")  
 	 public void deleteDocument(@PathVariable("id") int id) {  
 	  DocumentService.deleteDocument(id);    
-	 }   
+	 } 
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value = "/documentsExpiratingIn/{days}")
+	public List<Document> getDocumentsExpiratingIn(@PathVariable("days") int days) {
+		return DocumentService.getDocumentsExpiratingIn(days);
+	}
 }

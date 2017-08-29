@@ -46,6 +46,11 @@ public class TireController {
 	 @RequestMapping(value = "/deleteTires/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")  
 	 public void deleteTires(@PathVariable("id") int id) {  
 	  tS.deleteLEnd(id);   
-	 }   
+	 }  
+	@CrossOrigin(origins="http://localhost:4200")
+	@RequestMapping(value = "/tiresToChangeIn/{days}")
+	public List<Tire> getTiresToChangeIn(@PathVariable int days){
+		return tS.getTiresToChangeIn(days);
+	}
 
 }

@@ -1,13 +1,16 @@
 package dao;
 
+import java.util.Calendar;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import bean.Checkout;
 import bean.Insurance;
 import bean.Insurance;
 
@@ -60,5 +63,17 @@ public class InsuranceDao {
 		if (null !=l){
 			session.delete(l);
 		}
+	}
+
+	public List<Insurance> getInsurancesEndingIn(int days) {
+		 Session session = this.sessionFactory.getCurrentSession();  
+		 Calendar cDate = Calendar.getInstance();
+		 cDate.add(Calendar.DATE, days);
+		 Query q = session.createQuery("from Insurance i join fetch i.status s where i.dateEnd<=:cDate and s.progress = :status");
+		 q.setParameter("status", "in status");
+		 q.setParameter("cDate",cDate);
+		 List<Insurance> iS = q.list();
+		 getAllSubLists(iS);  
+		 return iS;
 	}
 }

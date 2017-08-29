@@ -1,7 +1,9 @@
 package dao;
 
+import java.util.Calendar;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +27,17 @@ public class DocumentDao {
 	 public List<Document> getAllDocuments() {  
 		  Session session = this.sessionFactory.getCurrentSession();  
 		  List<Document> DocumentList = session.createQuery("from Document").list();  
-		  for (Document d:DocumentList) {
+		  getAllSublists(DocumentList);
+		  return DocumentList;  
+		 }  
+	 
+	 public List<Document>getAllSublists(List<Document> doc){
+		 for (Document d:doc) {
 			  System.out.println(d.getCar());
 			  System.out.println(d.getStatus());
 		  }
-		  return DocumentList;  
-		 }  
+		 return doc;
+	 }
 		 	 
 	 public Document getDocument(int id) {  
 		  Session session = this.sessionFactory.getCurrentSession();  
@@ -59,5 +66,17 @@ public class DocumentDao {
 		  if (null != p) {  
 		   session.delete(p);  
 		  }  
-		 }   
+		 }
+
+	public List<Document> getDocumentsExpiratingIn(int days) {
+		Session s = this.sessionFactory.getCurrentSession();
+		Calendar cDate = Calendar.getInstance();
+		cDate.add(Calendar.DATE, days);
+		Query q = s.createQuery("from Document d join fetch d.status s where d.expirationDate <=:cDate and s.progress=:status");
+		q.setParameter("status", "in status");
+		q.setParameter("cDate", cDate);
+		List<Document> lD=q.list();
+		getAllSublists(lD);
+		return lD;
+	}   
 }	

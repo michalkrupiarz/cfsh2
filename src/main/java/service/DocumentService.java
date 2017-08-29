@@ -37,5 +37,8 @@ public class DocumentService {
 	public void deleteDocument(int id) {
 		DocumentDao.deleteDocument(id);		
 	}
+	public List<Document> getDocumentsExpiratingIn(int days) {
+		return DocumentDao.getDocumentsExpiratingIn(days);
+	}
 	
 }
