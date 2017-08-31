@@ -252,7 +252,4 @@ public List<Car> getAllCarsWithPendingInsurances() {
 	 }
 	return carList;
 	}
-
-	
-	
 }

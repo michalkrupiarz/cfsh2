@@ -63,8 +63,7 @@ public class CarController {
 	 }  
 	@CrossOrigin(origins = "http://localhost:4200")
 	 @RequestMapping(value = "/addCar", method = RequestMethod.POST, headers = "Accept=application/json")  
-	 public void addCar(@RequestBody Car car) {  
-		System.out.println(car);	
+	 public void addCar(@RequestBody Car car) {  	
 	  carService.addCar(car);  
 	    
 	 }  
